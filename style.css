@@ -241,9 +241,11 @@ html, body {
   z-index: 10;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .scene {
@@ -252,13 +254,19 @@ html, body {
   max-width: 440px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 40px 20px;
+  min-height: 100dvh;
+  padding: 32px 18px calc(32px + env(safe-area-inset-bottom));
   flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.45s ease, transform 0.45s var(--transition-smooth);
+}
+
+/* Offset for floating audio player in scenes 4 & 5 */
+#scene-gallery, #scene-wish {
+  padding-top: calc(76px + env(safe-area-inset-top));
 }
 
 .scene.active {
@@ -521,11 +529,12 @@ html, body {
 .chat-wrapper {
   width: 100%;
   max-width: 410px;
-  height: calc(100vh - 60px);
-  max-height: 720px;
+  height: calc(100vh - 48px);
+  height: calc(100dvh - 48px);
+  max-height: 680px;
   background: #FFFDFE;
   border: 1px solid var(--color-border);
-  border-radius: 28px;
+  border-radius: 24px;
   box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
@@ -1151,4 +1160,162 @@ html, body {
 /* Utility */
 .hidden {
   display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE OPTIMIZATIONS & RESPONSIVE REFINEMENTS
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .scene {
+    padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .scene-heading {
+    font-size: 1.6rem;
+    line-height: 1.35;
+  }
+
+  .scene-subheading {
+    font-size: 0.84rem;
+  }
+
+  /* Envelope adjustments for small screens */
+  .envelope-container {
+    width: min(280px, 84vw);
+    height: calc(min(280px, 84vw) * 0.64);
+    margin: 24px 0 28px;
+  }
+
+  /* LINE-style Chat on Mobile */
+  .chat-wrapper {
+    height: calc(100dvh - 24px);
+    max-height: none;
+    border-radius: 20px;
+  }
+
+  .chat-topbar {
+    padding: 12px 16px;
+  }
+
+  .chat-dialogue-area {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .chat-bubble {
+    font-size: 0.88rem;
+    padding: 9px 14px;
+    max-width: 84%;
+  }
+
+  .chat-bottombar {
+    padding: 12px 14px;
+  }
+
+  .btn-primary {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    min-height: 46px;
+  }
+
+  /* Gift Box on Mobile */
+  .gift-box-presentation {
+    width: min(175px, 46vw);
+    height: min(175px, 46vw);
+    margin: 20px 0 26px;
+  }
+
+  /* Post-it Card on Mobile (Clean, no overflow, perfectly sized) */
+  .gallery-header {
+    margin-bottom: 14px;
+  }
+
+  .gallery-title {
+    font-size: 1.45rem;
+  }
+
+  .postit-viewport {
+    max-width: min(320px, 90vw);
+    height: min(470px, 62dvh);
+  }
+
+  .postit-card {
+    padding: 10px 12px 14px;
+    border-radius: 6px;
+  }
+
+  .postit-photo-frame {
+    height: min(210px, 30dvh);
+  }
+
+  .postit-caption-block {
+    padding: 10px 2px 2px;
+  }
+
+  .postit-user-caption {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .gallery-pagination {
+    margin: 12px 0 12px;
+  }
+
+  .gallery-controls {
+    max-width: min(320px, 90vw);
+  }
+
+  .btn-outline {
+    padding: 10px 18px;
+    font-size: 0.84rem;
+    min-height: 44px;
+  }
+
+  /* Wish Card on Mobile */
+  .wish-main-title {
+    font-size: 1.7rem;
+  }
+
+  .wish-card-parchment {
+    padding: 26px 20px 22px;
+    border-radius: 14px;
+  }
+
+  .wish-inner-text {
+    font-size: 0.94rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .sign-name {
+    font-size: 1.3rem;
+  }
+}
+
+/* Compact screens / Landscape height */
+@media (max-height: 680px) {
+  .scene {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  #scene-gallery, #scene-wish {
+    padding-top: 68px;
+  }
+
+  .envelope-container {
+    margin: 18px 0 20px;
+  }
+
+  .postit-viewport {
+    height: min(430px, 58dvh);
+  }
+
+  .postit-photo-frame {
+    height: min(180px, 26dvh);
+  }
+
+  .gift-box-presentation {
+    margin: 14px 0 20px;
+  }
 }
