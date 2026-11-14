@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday to T</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Prompt:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Pink Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Persistent Floating Music Player -->
+  <header id="global-player" class="global-player hidden" aria-label="Audio Player">
+    <div class="player-container">
+      <div class="vinyl-disc" id="vinyl-disc">
+        <div class="vinyl-core"></div>
+      </div>
+      <div class="player-meta">
+        <span class="player-title">What Is Life</span>
+        <span class="player-artist">The Toys</span>
+      </div>
+      <button id="audio-toggle-btn" class="player-ctrl" type="button" aria-label="Play or Pause">
+        <svg class="ctrl-icon icon-play" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="6 4 20 12 6 20 6 4"></polygon>
+        </svg>
+        <svg class="ctrl-icon icon-pause hidden" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="5" y="4" width="4" height="16" rx="1"></rect>
+          <rect x="15" y="4" width="4" height="16" rx="1"></rect>
+        </svg>
+      </button>
+    </div>
+    <div class="player-track-progress">
+      <div id="player-track-bar" class="player-track-bar"></div>
+    </div>
+  </header>
+
+  <audio id="hbd-audio" preload="auto" loop>
+    <source src="mp3/What Is Life - The Toys.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="app-viewport">
+
+    <!-- ══════════════════════════════════════════════
+         SCENE 1: ENVELOPE (BEAUTIFUL CLOSED PINK ENVELOPE)
+    ══════════════════════════════════════════════ -->
+    <section id="scene-envelope" class="scene active">
+      <div class="envelope-wrapper">
+        <span class="badge-tag">A Special Note</span>
+        <h1 class="scene-heading">ข้อความถึงคุณ</h1>
+        <p class="scene-subheading">เปิดซองจดหมายเพื่อเริ่มต้นเรื่องราว</p>
+
+        <!-- Perfect Sealed Envelope Structure -->
+        <div class="envelope-container" id="envelope-trigger">
+          <div class="envelope-base">
+            <!-- Letter Sheet (hidden inside until opened) -->
+            <div class="envelope-letter" id="env-letter">
+              <span class="letter-monogram">For Sirirat</span>
+              <span class="letter-date">20 November</span>
+              <div class="letter-divider"></div>
+            </div>
+
+            <!-- Front Pocket Structure -->
+            <div class="envelope-pocket"></div>
+
+            <!-- Flap (Folds on top with seal) -->
+            <div class="envelope-flap" id="env-flap">
+              <div class="envelope-seal">
+                <span>T</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="open-envelope-btn" class="btn-primary" type="button">
+          <span>แตะเปิดซองจดหมาย</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════
+         SCENE 2: LINE-STYLE DIALOGUE
+    ══════════════════════════════════════════════ -->
+    <section id="scene-chat" class="scene">
+      <div class="chat-wrapper">
+        
+        <header class="chat-topbar">
+          <div class="profile-block">
+            <div class="avatar-badge">
+              <span>A</span>
+              <span class="status-indicator"></span>
+            </div>
+            <div class="profile-meta">
+              <div class="profile-name">arthur</div>
+              <div class="profile-status">ออนไลน์</div>
+            </div>
+          </div>
+        </header>
+
+        <div class="chat-dialogue-area" id="chat-dialogue-area">
+          <div class="chat-date-separator">
+            <span>20 พฤศจิกายน</span>
+          </div>
+          <!-- Messages rendered dynamically -->
+        </div>
+
+        <footer class="chat-bottombar">
+          <div class="tap-guide" id="chat-tap-guide">
+            <span class="guide-pulse"></span>
+            <span id="chat-guide-text">แตะเพื่ออ่านข้อความถัดไป</span>
+          </div>
+          
+          <button id="gift-proceed-btn" class="btn-primary hidden" type="button">
+            <span>เปิดกล่องของขวัญ</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </footer>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════
+         SCENE 3: PINK GIFT BOX
+    ══════════════════════════════════════════════ -->
+    <section id="scene-gift" class="scene">
+      <div class="gift-wrapper">
+        <span class="badge-tag">Birthday Surprise</span>
+        <h2 class="scene-heading">แตะกล่องของขวัญเพื่อเปิด</h2>
+        <p class="scene-subheading">เปิดเสียงเพื่อเริ่มต้นความทรงจำ</p>
+
+        <div class="gift-box-presentation" id="gift-box-unit">
+          <div class="gift-lid-structure" id="gift-lid-structure">
+            <div class="ribbon-knot"></div>
+            <div class="lid-top"></div>
+          </div>
+          <div class="gift-container-structure">
+            <div class="ribbon-vertical"></div>
+            <div class="ribbon-horizontal"></div>
+            <div class="box-front"></div>
+          </div>
+          <div class="box-shadow-ground"></div>
+        </div>
+
+        <p class="guide-tip">แตะที่กล่องเพื่อเข้าสู่ช่วงเวลาพิเศษ</p>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════
+         SCENE 4: MEMORY GALLERY (POST-IT PHOTO CARDS)
+    ══════════════════════════════════════════════ -->
+    <section id="scene-gallery" class="scene">
+      <div class="gallery-wrapper">
+
+        <header class="gallery-header">
+          <span class="badge-tag">10 Months Together</span>
+        </header>
+
+        <div class="postit-viewport">
+          <div class="postit-card-stack" id="postit-card-stack">
+            <!-- Cards rendered by script.js -->
+          </div>
+        </div>
+
+        <div class="gallery-pagination">
+          <div class="dots-track" id="gallery-dots"></div>
+        </div>
+
+        <nav class="gallery-controls">
+          <button id="gallery-prev-btn" class="btn-outline" type="button" disabled>
+            <svg class="btn-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>ย้อนกลับ</span>
+          </button>
+
+          <span class="gallery-counter" id="gallery-counter">1 / 4</span>
+
+          <button id="gallery-next-btn" class="btn-primary" type="button">
+            <span>ถัดไป</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </nav>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════
+         SCENE 5: FINAL WISH CARD (WITH BACK NAVIGATION)
+    ══════════════════════════════════════════════ -->
+    <section id="scene-wish" class="scene">
+      <div class="wish-wrapper">
+        
+        <header class="wish-header">
+          <span class="badge-tag">Happy Birthday</span>
+          <h1 class="wish-main-title">สุขสันต์วันเกิดนะ</h1>
+          <div class="accent-bar"></div>
+        </header>
+
+        <article class="wish-card-parchment">
+          <div class="card-pin"></div>
+          <div class="wish-inner-text" id="wish-user-content">
+            <!-- พื้นที่พิมพ์คำอวยพรด้วยตัวเอง -->
+            <p class="wish-paragraph">
+              สุดท้ายนี้ผมหวังอยากให้พี่มีความสุขมากๆนะถ้าเหนื่อยหรือท้อผมยังไงผมก็อยู่ข้างๆพี่ตลอดเสมอนะไม่ต้องกลัวว่าจะหาย :D
+            </p>
+            <p class="wish-paragraph subtle">
+             
+            </p>
+          </div>
+          <footer class="wish-signature">
+            <span class="sign-from">from</span>
+            <span class="sign-name">arthur</span>
+          </footer>
+        </article>
+
+        <!-- Navigation: Go back to gallery anytime -->
+        <div class="wish-back-container">
+          <button id="wish-back-btn" class="btn-outline" type="button">
+            <svg class="btn-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>ย้อนกลับไปดูรูปภาพ</span>
+          </button>
+        </div>
+
+        <p class="credits-note">Special 10-Month Milestone &bull; November 2026</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
