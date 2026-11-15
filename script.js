@@ -390,6 +390,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (currentPhotoIndex === MEMORY_CARDS.length - 1) {
       switchScene('wish');
+      // Trigger romantic flower petals & golden sparkles burst for the bouquet reveal
+      triggerSparkleBurst(windowWidth / 2, windowHeight * 0.38, 75, 'flowers');
       return;
     }
 
@@ -580,28 +582,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const burstParticles = [];
 
   function triggerSparkleBurst(ox, oy, count = 50, type = 'stars') {
-    const burstColors = [
-      '#FF5A8C', '#FFA5C0', '#FFE4EC', '#FFD79E', '#EAA844', '#FFFFFF'
-    ];
+    const burstColors = type === 'flowers'
+      ? ['#FF5A8C', '#FFA5C0', '#FFE4EC', '#FF7DA2', '#FFCADB', '#FFF0F5']
+      : ['#FF5A8C', '#FFA5C0', '#FFE4EC', '#FFD79E', '#EAA844', '#FFFFFF'];
 
     for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-      const speed = Math.random() * (type === 'confetti' ? 9 : 6) + 2.5;
+      const speed = type === 'flowers' 
+        ? Math.random() * 4.5 + 1.8 
+        : Math.random() * (type === 'confetti' ? 9 : 6) + 2.5;
 
       burstParticles.push({
         x: ox,
         y: oy,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - (type === 'confetti' ? 3.5 : 1.5),
-        gravity: type === 'confetti' ? 0.22 : 0.08,
+        vy: Math.sin(angle) * speed - (type === 'confetti' ? 3.5 : (type === 'flowers' ? 2.5 : 1.5)),
+        gravity: type === 'confetti' ? 0.22 : (type === 'flowers' ? 0.05 : 0.08),
         color: burstColors[Math.floor(Math.random() * burstColors.length)],
-        width: type === 'confetti' ? Math.random() * 7 + 4 : Math.random() * 4 + 2,
-        height: type === 'confetti' ? Math.random() * 12 + 6 : Math.random() * 4 + 2,
+        width: type === 'confetti' ? Math.random() * 7 + 4 : (type === 'flowers' ? Math.random() * 6 + 4 : Math.random() * 4 + 2),
+        height: type === 'confetti' ? Math.random() * 12 + 6 : (type === 'flowers' ? Math.random() * 10 + 6 : Math.random() * 4 + 2),
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.2,
+        rotSpeed: (Math.random() - 0.5) * (type === 'flowers' ? 0.08 : 0.2),
         alpha: 1,
         life: 1,
-        decay: Math.random() * 0.015 + 0.012,
+        decay: type === 'flowers' ? Math.random() * 0.01 + 0.007 : Math.random() * 0.015 + 0.012,
         type: type
       });
     }
@@ -638,6 +642,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (p.type === 'confetti') {
         // Elegant ribbon strips
         bctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
+      } else if (p.type === 'flowers') {
+        // Delicate soft rose petals drifting gently
+        bctx.beginPath();
+        bctx.ellipse(0, 0, p.width * 1.5, p.height * 1.2, 0, 0, Math.PI * 2);
+        bctx.fill();
       } else {
         // Sparkling diamonds
         bctx.beginPath();

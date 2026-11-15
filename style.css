@@ -1155,6 +1155,112 @@ html, body {
   border-radius: 2px;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   FLOWER BOUQUET PRESENTATION (WISH SCENE)
+══════════════════════════════════════════════════════════════ */
+.bouquet-presentation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0 24px;
+  animation: bouquetRiseBloom 1.2s var(--transition-smooth) both;
+}
+
+@keyframes bouquetRiseBloom {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.65) rotate(-6deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.04) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.bouquet-halo {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle, rgba(255, 140, 175, 0.25) 0%, rgba(255, 220, 150, 0.15) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: haloPulse 3.5s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes haloPulse {
+  0% { transform: translateX(-50%) scale(0.9); opacity: 0.5; }
+  100% { transform: translateX(-50%) scale(1.15); opacity: 0.85; }
+}
+
+.bouquet-svg {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: 192px;
+  filter: drop-shadow(0 10px 24px rgba(255, 90, 140, 0.22));
+  animation: bouquetGentleSway 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes bouquetGentleSway {
+  0% { transform: rotate(-1.5deg) translateY(0); }
+  50% { transform: rotate(1.5deg) translateY(-4px); }
+  100% { transform: rotate(-1deg) translateY(0); }
+}
+
+/* Blossom Blooming Stems & Flowers */
+.b-flower {
+  transform-origin: center;
+  animation: flowerBloom 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.f-center { animation-delay: 0.2s; }
+.f-left   { animation-delay: 0.35s; }
+.f-right  { animation-delay: 0.45s; }
+
+@keyframes flowerBloom {
+  0% {
+    transform: scale(0.2) rotate(-15deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.b-sparkle {
+  animation: sparkleTwinkle 2s ease-in-out infinite alternate;
+}
+.sp1 { animation-delay: 0.2s; }
+.sp2 { animation-delay: 0.7s; }
+.sp3 { animation-delay: 1.2s; }
+
+@keyframes sparkleTwinkle {
+  0% { opacity: 0.2; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 4px #FFE08C); }
+}
+
+.bouquet-caption {
+  font-family: var(--font-thai);
+  font-size: 0.82rem;
+  color: var(--color-pink-primary);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  background: rgba(255, 90, 140, 0.07);
+  padding: 3px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 90, 140, 0.14);
+}
+
 .wish-card-parchment {
   width: 100%;
   background: #FFFFFF;
@@ -1197,11 +1303,6 @@ html, body {
 @keyframes pinPulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(255, 90, 140, 0.25); }
   50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(255, 90, 140, 0); }
-}
-  background: var(--color-pink-primary);
-  border-radius: 50%;
-  margin: 0 auto 22px;
-  box-shadow: 0 0 0 3px rgba(255, 90, 140, 0.2);
 }
 
 .wish-inner-text {
@@ -1370,6 +1471,21 @@ html, body {
     padding: 10px 18px;
     font-size: 0.84rem;
     min-height: 44px;
+  }
+
+  /* Bouquet on Mobile */
+  .bouquet-presentation {
+    margin: 6px 0 18px;
+  }
+
+  .bouquet-svg {
+    width: 140px;
+    height: 168px;
+  }
+
+  .bouquet-halo {
+    width: 140px;
+    height: 140px;
   }
 
   /* Wish Card on Mobile */
