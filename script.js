@@ -323,48 +323,48 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPhotoIndex = 0;
   let isGalleryBuilt = false;
 
-  // Behind-card decoration layers for all 4 memory photos (Flowers, Dog, Cat)
+  // Behind-card decoration layers for all 4 memory photos (Handcrafted Vector Art: Dog, Cat, Flowers - Zero Emojis)
   const CARD_DECORATIONS = [
     // Card 1: Puppy peeking from top-left, kitty peeking from top-right, flowers blooming at sides & bottom
     [
-      { emoji: '🐶', top: '-36px', left: '12%', delay: '0.1s' },
-      { emoji: '🐱', top: '-36px', right: '12%', delay: '0.18s' },
-      { emoji: '🌸', top: '26%',  left: '-32px', delay: '0.24s' },
-      { emoji: '🌼', top: '56%',  right: '-32px', delay: '0.32s' },
-      { emoji: '🌺', bottom: '-26px', left: '20%', delay: '0.38s' },
-      { emoji: '🌷', bottom: '-26px', right: '20%', delay: '0.44s' },
-      { emoji: '🐾', top: '68%',  left: '-26px', delay: '0.5s' }
+      { sym: '#sym-dog', viewBox: '0 0 52 52', top: '-40px', left: '10%', delay: '0.1s' },
+      { sym: '#sym-cat', viewBox: '0 0 52 52', top: '-40px', right: '10%', delay: '0.18s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', top: '26%', left: '-32px', delay: '0.24s' },
+      { sym: '#sym-daisy', viewBox: '0 0 46 46', top: '56%', right: '-32px', delay: '0.32s' },
+      { sym: '#sym-tulip', viewBox: '0 0 46 46', bottom: '-26px', left: '18%', delay: '0.38s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', bottom: '-26px', right: '18%', delay: '0.44s' },
+      { sym: '#sym-paw', viewBox: '0 0 40 40', top: '68%', left: '-26px', delay: '0.5s' }
     ],
     // Card 2: Dog peeking from top-right, cat peeking from left side, blooming flowers & paws
     [
-      { emoji: '🐕', top: '-38px', right: '15%', delay: '0.1s' },
-      { emoji: '🐈', top: '35%',  left: '-34px', delay: '0.2s' },
-      { emoji: '🌸', top: '-32px', left: '15%', delay: '0.15s' },
-      { emoji: '💐', top: '58%',  right: '-32px', delay: '0.3s' },
-      { emoji: '🌼', bottom: '-26px', left: '25%', delay: '0.38s' },
-      { emoji: '🐾', bottom: '-24px', right: '28%', delay: '0.45s' }
+      { sym: '#sym-dog', viewBox: '0 0 52 52', top: '-42px', right: '14%', delay: '0.1s' },
+      { sym: '#sym-cat', viewBox: '0 0 52 52', top: '35%', left: '-34px', delay: '0.2s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', top: '-32px', left: '14%', delay: '0.15s' },
+      { sym: '#sym-tulip', viewBox: '0 0 46 46', top: '58%', right: '-32px', delay: '0.3s' },
+      { sym: '#sym-daisy', viewBox: '0 0 46 46', bottom: '-26px', left: '25%', delay: '0.38s' },
+      { sym: '#sym-paw', viewBox: '0 0 40 40', bottom: '-24px', right: '28%', delay: '0.45s' }
     ],
     // Card 3: Cat peeking from top-left, dog peeking from bottom-right, blossoms all around
     [
-      { emoji: '🐱', top: '-36px', left: '14%', delay: '0.1s' },
-      { emoji: '🐶', bottom: '-36px', right: '16%', delay: '0.2s' },
-      { emoji: '🌺', top: '-32px', right: '18%', delay: '0.24s' },
-      { emoji: '🌸', top: '42%',  left: '-32px', delay: '0.3s' },
-      { emoji: '🌷', top: '32%',  right: '-32px', delay: '0.36s' },
-      { emoji: '🌼', bottom: '-26px', left: '20%', delay: '0.42s' },
-      { emoji: '🐾', top: '65%',  right: '-28px', delay: '0.48s' }
+      { sym: '#sym-cat', viewBox: '0 0 52 52', top: '-40px', left: '12%', delay: '0.1s' },
+      { sym: '#sym-dog', viewBox: '0 0 52 52', bottom: '-36px', right: '14%', delay: '0.2s' },
+      { sym: '#sym-tulip', viewBox: '0 0 46 46', top: '-32px', right: '16%', delay: '0.24s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', top: '42%', left: '-32px', delay: '0.3s' },
+      { sym: '#sym-daisy', viewBox: '0 0 46 46', top: '32%', right: '-32px', delay: '0.36s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', bottom: '-26px', left: '20%', delay: '0.42s' },
+      { sym: '#sym-paw', viewBox: '0 0 40 40', top: '65%', right: '-28px', delay: '0.48s' }
     ],
-    // Card 4: Grand celebration! Both Dog & Cat peeking proudly together with flowers and hearts
+    // Card 4: Grand celebration! Both Dog & Cat peeking proudly together with flowers and paws
     [
-      { emoji: '🐕', top: '-38px', left: '16%', delay: '0.1s' },
-      { emoji: '🐈', top: '-38px', right: '16%', delay: '0.16s' },
-      { emoji: '💐', top: '32%',  left: '-34px', delay: '0.24s' },
-      { emoji: '🌸', top: '32%',  right: '-32px', delay: '0.3s' },
-      { emoji: '🌼', top: '62%',  left: '-30px', delay: '0.36s' },
-      { emoji: '🌺', top: '62%',  right: '-30px', delay: '0.42s' },
-      { emoji: '🌷', bottom: '-26px', left: '50%', delay: '0.48s' },
-      { emoji: '🐾', bottom: '-24px', left: '18%', delay: '0.52s' },
-      { emoji: '🐾', bottom: '-24px', right: '18%', delay: '0.56s' }
+      { sym: '#sym-dog', viewBox: '0 0 52 52', top: '-42px', left: '14%', delay: '0.1s' },
+      { sym: '#sym-cat', viewBox: '0 0 52 52', top: '-42px', right: '14%', delay: '0.16s' },
+      { sym: '#sym-tulip', viewBox: '0 0 46 46', top: '32%', left: '-34px', delay: '0.24s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', top: '32%', right: '-32px', delay: '0.3s' },
+      { sym: '#sym-daisy', viewBox: '0 0 46 46', top: '62%', left: '-30px', delay: '0.36s' },
+      { sym: '#sym-blossom', viewBox: '0 0 46 46', top: '62%', right: '-30px', delay: '0.42s' },
+      { sym: '#sym-tulip', viewBox: '0 0 46 46', bottom: '-26px', left: '50%', delay: '0.48s' },
+      { sym: '#sym-paw', viewBox: '0 0 40 40', bottom: '-24px', left: '16%', delay: '0.52s' },
+      { sym: '#sym-paw', viewBox: '0 0 40 40', bottom: '-24px', right: '16%', delay: '0.56s' }
     ]
   ];
 
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      // Build Behind-Card Decorations (Flowers, Dog, Cat)
+      // Build Behind-Card Decorations (Handcrafted Vector Art)
       const decoLayer = document.createElement('div');
       decoLayer.className = 'card-deco-layer';
       decoLayer.setAttribute('aria-hidden', 'true');
@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cardDecos.forEach(d => {
         const deco = document.createElement('span');
         deco.className = 'deco-unit';
-        deco.textContent = d.emoji;
+        deco.innerHTML = `<svg class="deco-vector-svg" viewBox="${d.viewBox}"><use href="${d.sym}"></use></svg>`;
         if (d.top) deco.style.top = d.top;
         if (d.bottom) deco.style.bottom = d.bottom;
         if (d.left) deco.style.left = d.left;

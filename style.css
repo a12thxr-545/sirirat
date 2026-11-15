@@ -1220,7 +1220,8 @@ html, body {
 
 .rose-unit {
   position: absolute;
-  font-size: 2.4rem;
+  width: 52px;
+  height: 52px;
   opacity: 0;
   transform: scale(0) rotate(0deg);
   filter: drop-shadow(0 4px 10px rgba(255, 90, 140, 0.35));
@@ -1229,8 +1230,9 @@ html, body {
   will-change: transform, opacity;
 }
 
-.rose-unit::before {
-  content: '🌹';
+.rose-unit .rose-svg {
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
@@ -1287,14 +1289,20 @@ html, body {
 
 .deco-unit {
   position: absolute;
-  font-size: 2rem;
-  line-height: 1;
+  width: 48px;
+  height: 48px;
   opacity: 0;
   transform: scale(0) translateY(10px);
   filter: drop-shadow(0 3px 8px rgba(255, 90, 140, 0.28));
   user-select: none;
   pointer-events: none;
   will-change: transform, opacity;
+}
+
+.deco-unit .deco-vector-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .postit-card.state-active .deco-unit,
@@ -1520,14 +1528,16 @@ html, body {
 
   /* Behind-Card Decos & Roses on Mobile */
   .rose-unit {
-    font-size: 1.9rem;
+    width: 42px;
+    height: 42px;
   }
 
   .rose-left-mid { left: -16px; }
   .rose-right-mid { right: -16px; }
 
   .deco-unit {
-    font-size: 1.65rem;
+    width: 38px;
+    height: 38px;
   }
 }
 
