@@ -1202,7 +1202,7 @@ html, body {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   ROSES BEHIND WISH CARD & FLOWER/ANIMAL DECORATIONS
+   ENCHANTING FLOWER GARLAND BEHIND WISH CARD & FLOATING PETALS
 ══════════════════════════════════════════════════════════════ */
 .wish-card-stage {
   position: relative;
@@ -1218,18 +1218,20 @@ html, body {
   z-index: 1;
 }
 
+.flower-unit,
 .rose-unit {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   opacity: 0;
   transform: scale(0) rotate(0deg);
-  filter: drop-shadow(0 4px 10px rgba(255, 90, 140, 0.35));
+  filter: drop-shadow(0 4px 10px rgba(255, 90, 140, 0.32));
   user-select: none;
   pointer-events: none;
   will-change: transform, opacity;
 }
 
+.flower-unit .flower-svg,
 .rose-unit .rose-svg {
   width: 100%;
   height: 100%;
@@ -1237,28 +1239,52 @@ html, body {
 }
 
 /* Blooming animation when arriving at wish scene */
+.roses-behind-card.blooming .flower-unit,
 .roses-behind-card.blooming .rose-unit {
-  animation: roseBloom 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-             roseFloatingSway 4s ease-in-out infinite alternate 1.2s;
+  animation: flowerBloom 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             flowerFloatingSway 4.2s ease-in-out infinite alternate 1.1s;
 }
 
-.rose-top-left     { top: -28px; left: 16px;   animation-delay: 0.05s, 1.25s !important; }
-.rose-top-mid      { top: -34px; left: 50%; transform-origin: center bottom; animation-delay: 0.15s, 1.35s !important; }
-.rose-top-right    { top: -28px; right: 16px;  animation-delay: 0.1s, 1.3s !important; }
-.rose-left-mid     { top: 40%;   left: -28px;  animation-delay: 0.25s, 1.45s !important; }
-.rose-right-mid    { top: 40%;   right: -28px; animation-delay: 0.2s, 1.4s !important; }
-.rose-bottom-left  { bottom: -20px; left: 24px;  animation-delay: 0.3s, 1.5s !important; }
-.rose-bottom-mid   { bottom: -26px; left: 50%; animation-delay: 0.4s, 1.6s !important; }
-.rose-bottom-right { bottom: -20px; right: 24px; animation-delay: 0.35s, 1.55s !important; }
+/* Top Arch (7 flowers) */
+.fl-top-1 { top: -28px; left: 8px;   animation-delay: 0.05s, 1.15s !important; }
+.fl-top-2 { top: -38px; left: 22%;   animation-delay: 0.12s, 1.22s !important; }
+.fl-top-3 { top: -42px; left: 38%;   animation-delay: 0.18s, 1.28s !important; }
+.fl-top-4 { top: -44px; left: 50%; transform: translateX(-50%); animation-delay: 0.22s, 1.32s !important; }
+.fl-top-5 { top: -42px; right: 38%;  animation-delay: 0.18s, 1.28s !important; }
+.fl-top-6 { top: -38px; right: 22%;  animation-delay: 0.12s, 1.22s !important; }
+.fl-top-7 { top: -28px; right: 8px;  animation-delay: 0.05s, 1.15s !important; }
 
-@keyframes roseBloom {
+/* Left Cascade (5 flowers) */
+.fl-left-1 { top: 15%; left: -26px; animation-delay: 0.15s, 1.25s !important; }
+.fl-left-2 { top: 32%; left: -32px; animation-delay: 0.22s, 1.32s !important; }
+.fl-left-3 { top: 50%; left: -30px; animation-delay: 0.28s, 1.38s !important; }
+.fl-left-4 { top: 68%; left: -28px; animation-delay: 0.34s, 1.44s !important; }
+.fl-left-5 { top: 82%; left: -22px; animation-delay: 0.40s, 1.50s !important; }
+
+/* Right Cascade (5 flowers) */
+.fl-right-1 { top: 15%; right: -26px; animation-delay: 0.15s, 1.25s !important; }
+.fl-right-2 { top: 32%; right: -32px; animation-delay: 0.22s, 1.32s !important; }
+.fl-right-3 { top: 50%; right: -30px; animation-delay: 0.28s, 1.38s !important; }
+.fl-right-4 { top: 68%; right: -28px; animation-delay: 0.34s, 1.44s !important; }
+.fl-right-5 { top: 82%; right: -22px; animation-delay: 0.40s, 1.50s !important; }
+
+/* Bottom Bed (7 flowers) */
+.fl-bot-1 { bottom: -24px; left: 10px;  animation-delay: 0.25s, 1.35s !important; }
+.fl-bot-2 { bottom: -34px; left: 24%;  animation-delay: 0.30s, 1.40s !important; }
+.fl-bot-3 { bottom: -38px; left: 38%;  animation-delay: 0.36s, 1.46s !important; }
+.fl-bot-4 { bottom: -40px; left: 50%; transform: translateX(-50%); animation-delay: 0.42s, 1.52s !important; }
+.fl-bot-5 { bottom: -38px; right: 38%; animation-delay: 0.36s, 1.46s !important; }
+.fl-bot-6 { bottom: -34px; right: 24%; animation-delay: 0.30s, 1.40s !important; }
+.fl-bot-7 { bottom: -24px; right: 10px; animation-delay: 0.25s, 1.35s !important; }
+
+@keyframes flowerBloom {
   0% {
     opacity: 0;
-    transform: scale(0) translateY(20px) rotate(-25deg);
+    transform: scale(0) translateY(18px) rotate(-22deg);
   }
   65% {
     opacity: 1;
-    transform: scale(1.22) translateY(-6px) rotate(8deg);
+    transform: scale(1.18) translateY(-5px) rotate(6deg);
   }
   100% {
     opacity: 1;
@@ -1266,16 +1292,88 @@ html, body {
   }
 }
 
-@keyframes roseFloatingSway {
+@keyframes flowerFloatingSway {
   0% {
     transform: scale(1) translateY(0) rotate(0deg);
   }
   50% {
-    transform: scale(1.05) translateY(-4px) rotate(4deg);
+    transform: scale(1.06) translateY(-4px) rotate(4deg);
   }
   100% {
-    transform: scale(0.98) translateY(2px) rotate(-3deg);
+    transform: scale(0.96) translateY(2px) rotate(-3deg);
   }
+}
+
+/* Soft Floating Petals Drifting in Wish Scene */
+.wish-floating-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.drift-petal {
+  position: absolute;
+  background: radial-gradient(ellipse at 35% 35%, #FF85A8 0%, #FFAEC5 50%, #FFCADB 100%);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0.55;
+  filter: drop-shadow(0 2px 4px rgba(255, 90, 140, 0.2));
+  animation: petalDriftDown linear infinite;
+}
+
+.dp-1 { width: 14px; height: 18px; top: -20px; left: 10%;  animation-duration: 9s;  animation-delay: 0s; }
+.dp-2 { width: 12px; height: 15px; top: -20px; left: 28%;  animation-duration: 12s; animation-delay: 2s; }
+.dp-3 { width: 16px; height: 20px; top: -20px; left: 45%;  animation-duration: 10s; animation-delay: 4.5s; }
+.dp-4 { width: 11px; height: 14px; top: -20px; left: 62%;  animation-duration: 11s; animation-delay: 1.5s; }
+.dp-5 { width: 15px; height: 19px; top: -20px; left: 80%;  animation-duration: 8.5s; animation-delay: 3s; }
+.dp-6 { width: 13px; height: 16px; top: -20px; left: 92%;  animation-duration: 13s; animation-delay: 5s; }
+.dp-7 { width: 14px; height: 17px; top: -20px; left: 20%;  animation-duration: 9.5s; animation-delay: 6s; }
+.dp-8 { width: 12px; height: 15px; top: -20px; left: 70%;  animation-duration: 11.5s; animation-delay: 7.5s; }
+
+@keyframes petalDriftDown {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateY(50vh) translateX(35px) rotate(140deg) scale(1);
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(105vh) translateX(70px) rotate(280deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Floral Motifs inside Wish Card */
+.card-floral-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.floral-wreath-icon {
+  width: 76px;
+  height: 20px;
+  opacity: 0.85;
+}
+
+.wish-floral-divider {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 14px;
+}
+
+.wish-floral-divider svg {
+  width: 110px;
+  height: 16px;
+  opacity: 0.85;
 }
 
 /* Behind-card decoration layer for photo cards (Flowers, Dog, Cat) */
@@ -1526,12 +1624,15 @@ html, body {
     font-size: 1.3rem;
   }
 
-  /* Behind-Card Decos & Roses on Mobile */
+  /* Behind-Card Decos & Flowers on Mobile */
+  .flower-unit,
   .rose-unit {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 
+  .fl-left-1, .fl-left-2, .fl-left-3, .fl-left-4, .fl-left-5 { left: -16px; }
+  .fl-right-1, .fl-right-2, .fl-right-3, .fl-right-4, .fl-right-5 { right: -16px; }
   .rose-left-mid { left: -16px; }
   .rose-right-mid { right: -16px; }
 
