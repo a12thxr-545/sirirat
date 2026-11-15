@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (candlePromptText) {
         candlePromptText.innerHTML = `
           <span class="sparkle-sym">✦</span>
-          <span class="candle-label-text">ขอให้คำอธิษฐานของพี่เป็นจริงในทุกๆ วันนะ</span>
+          <span class="candle-label-text">ขอให้สมหวังและเป็นไปตามที่อธิษฐานนะ</span>
           <span class="sparkle-sym">✦</span>
         `;
       }
