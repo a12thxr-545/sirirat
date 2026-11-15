@@ -98,6 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
       target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Trigger or reset roses behind the wish card
+    const roseContainer = document.getElementById('roses-behind-card');
+    if (roseContainer) {
+      if (targetSceneKey === 'wish') {
+        roseContainer.classList.remove('blooming');
+        setTimeout(() => {
+          roseContainer.classList.add('blooming');
+        }, 120);
+      } else {
+        roseContainer.classList.remove('blooming');
+      }
+    }
   }
 
   /* ────────────────────────────────────────────────────────────
@@ -310,6 +323,51 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPhotoIndex = 0;
   let isGalleryBuilt = false;
 
+  // Behind-card decoration layers for all 4 memory photos (Flowers, Dog, Cat)
+  const CARD_DECORATIONS = [
+    // Card 1: Puppy peeking from top-left, kitty peeking from top-right, flowers blooming at sides & bottom
+    [
+      { emoji: '🐶', top: '-36px', left: '12%', delay: '0.1s' },
+      { emoji: '🐱', top: '-36px', right: '12%', delay: '0.18s' },
+      { emoji: '🌸', top: '26%',  left: '-32px', delay: '0.24s' },
+      { emoji: '🌼', top: '56%',  right: '-32px', delay: '0.32s' },
+      { emoji: '🌺', bottom: '-26px', left: '20%', delay: '0.38s' },
+      { emoji: '🌷', bottom: '-26px', right: '20%', delay: '0.44s' },
+      { emoji: '🐾', top: '68%',  left: '-26px', delay: '0.5s' }
+    ],
+    // Card 2: Dog peeking from top-right, cat peeking from left side, blooming flowers & paws
+    [
+      { emoji: '🐕', top: '-38px', right: '15%', delay: '0.1s' },
+      { emoji: '🐈', top: '35%',  left: '-34px', delay: '0.2s' },
+      { emoji: '🌸', top: '-32px', left: '15%', delay: '0.15s' },
+      { emoji: '💐', top: '58%',  right: '-32px', delay: '0.3s' },
+      { emoji: '🌼', bottom: '-26px', left: '25%', delay: '0.38s' },
+      { emoji: '🐾', bottom: '-24px', right: '28%', delay: '0.45s' }
+    ],
+    // Card 3: Cat peeking from top-left, dog peeking from bottom-right, blossoms all around
+    [
+      { emoji: '🐱', top: '-36px', left: '14%', delay: '0.1s' },
+      { emoji: '🐶', bottom: '-36px', right: '16%', delay: '0.2s' },
+      { emoji: '🌺', top: '-32px', right: '18%', delay: '0.24s' },
+      { emoji: '🌸', top: '42%',  left: '-32px', delay: '0.3s' },
+      { emoji: '🌷', top: '32%',  right: '-32px', delay: '0.36s' },
+      { emoji: '🌼', bottom: '-26px', left: '20%', delay: '0.42s' },
+      { emoji: '🐾', top: '65%',  right: '-28px', delay: '0.48s' }
+    ],
+    // Card 4: Grand celebration! Both Dog & Cat peeking proudly together with flowers and hearts
+    [
+      { emoji: '🐕', top: '-38px', left: '16%', delay: '0.1s' },
+      { emoji: '🐈', top: '-38px', right: '16%', delay: '0.16s' },
+      { emoji: '💐', top: '32%',  left: '-34px', delay: '0.24s' },
+      { emoji: '🌸', top: '32%',  right: '-32px', delay: '0.3s' },
+      { emoji: '🌼', top: '62%',  left: '-30px', delay: '0.36s' },
+      { emoji: '🌺', top: '62%',  right: '-30px', delay: '0.42s' },
+      { emoji: '🌷', bottom: '-26px', left: '50%', delay: '0.48s' },
+      { emoji: '🐾', bottom: '-24px', left: '18%', delay: '0.52s' },
+      { emoji: '🐾', bottom: '-24px', right: '18%', delay: '0.56s' }
+    ]
+  ];
+
   function renderGallery() {
     if (isGalleryBuilt) {
       updateCardStackVisuals();
@@ -337,6 +395,25 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
+      // Build Behind-Card Decorations (Flowers, Dog, Cat)
+      const decoLayer = document.createElement('div');
+      decoLayer.className = 'card-deco-layer';
+      decoLayer.setAttribute('aria-hidden', 'true');
+
+      const cardDecos = CARD_DECORATIONS[index] || CARD_DECORATIONS[0];
+      cardDecos.forEach(d => {
+        const deco = document.createElement('span');
+        deco.className = 'deco-unit';
+        deco.textContent = d.emoji;
+        if (d.top) deco.style.top = d.top;
+        if (d.bottom) deco.style.bottom = d.bottom;
+        if (d.left) deco.style.left = d.left;
+        if (d.right) deco.style.right = d.right;
+        if (d.delay) deco.style.animationDelay = `${d.delay}, calc(${d.delay} + 0.7s)`;
+        decoLayer.appendChild(deco);
+      });
+
+      card.appendChild(decoLayer);
       cardStackEl.appendChild(card);
 
       // Build Dot
@@ -390,8 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (currentPhotoIndex === MEMORY_CARDS.length - 1) {
       switchScene('wish');
-      // Trigger romantic flower petals & golden sparkles burst for the bouquet reveal
-      triggerSparkleBurst(windowWidth / 2, windowHeight * 0.38, 75, 'flowers');
+      triggerSparkleBurst(window.innerWidth / 2, window.innerHeight * 0.45, 80, 'confetti');
       return;
     }
 
@@ -582,30 +658,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const burstParticles = [];
 
   function triggerSparkleBurst(ox, oy, count = 50, type = 'stars') {
-    const burstColors = type === 'flowers'
-      ? ['#FF5A8C', '#FFA5C0', '#FFE4EC', '#FF7DA2', '#FFCADB', '#FFF0F5']
-      : ['#FF5A8C', '#FFA5C0', '#FFE4EC', '#FFD79E', '#EAA844', '#FFFFFF'];
+    const burstColors = [
+      '#FF5A8C', '#FFA5C0', '#FFE4EC', '#FFD79E', '#EAA844', '#FFFFFF'
+    ];
 
     for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-      const speed = type === 'flowers' 
-        ? Math.random() * 4.5 + 1.8 
-        : Math.random() * (type === 'confetti' ? 9 : 6) + 2.5;
+      const speed = Math.random() * (type === 'confetti' ? 9 : 6) + 2.5;
 
       burstParticles.push({
         x: ox,
         y: oy,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - (type === 'confetti' ? 3.5 : (type === 'flowers' ? 2.5 : 1.5)),
-        gravity: type === 'confetti' ? 0.22 : (type === 'flowers' ? 0.05 : 0.08),
+        vy: Math.sin(angle) * speed - (type === 'confetti' ? 3.5 : 1.5),
+        gravity: type === 'confetti' ? 0.22 : 0.08,
         color: burstColors[Math.floor(Math.random() * burstColors.length)],
-        width: type === 'confetti' ? Math.random() * 7 + 4 : (type === 'flowers' ? Math.random() * 6 + 4 : Math.random() * 4 + 2),
-        height: type === 'confetti' ? Math.random() * 12 + 6 : (type === 'flowers' ? Math.random() * 10 + 6 : Math.random() * 4 + 2),
+        width: type === 'confetti' ? Math.random() * 7 + 4 : Math.random() * 4 + 2,
+        height: type === 'confetti' ? Math.random() * 12 + 6 : Math.random() * 4 + 2,
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * (type === 'flowers' ? 0.08 : 0.2),
+        rotSpeed: (Math.random() - 0.5) * 0.2,
         alpha: 1,
         life: 1,
-        decay: type === 'flowers' ? Math.random() * 0.01 + 0.007 : Math.random() * 0.015 + 0.012,
+        decay: Math.random() * 0.015 + 0.012,
         type: type
       });
     }
@@ -642,11 +716,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (p.type === 'confetti') {
         // Elegant ribbon strips
         bctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
-      } else if (p.type === 'flowers') {
-        // Delicate soft rose petals drifting gently
-        bctx.beginPath();
-        bctx.ellipse(0, 0, p.width * 1.5, p.height * 1.2, 0, 0, Math.PI * 2);
-        bctx.fill();
       } else {
         // Sparkling diamonds
         bctx.beginPath();
