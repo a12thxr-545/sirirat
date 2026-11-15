@@ -260,18 +260,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (giftTriggered) return;
     giftTriggered = true;
 
-    giftBoxUnit.classList.add('opened');
-
-    // Trigger grand warm confetti burst
-    const rect = giftBoxUnit.getBoundingClientRect();
-    triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 90, 'confetti');
-
-    startAudioPlayback();
+    // Excitement anticipation wobble before bursting open
+    giftBoxUnit.classList.add('opening');
 
     setTimeout(() => {
-      switchScene('gallery');
-      renderGallery();
-    }, 700);
+      giftBoxUnit.classList.add('opened');
+
+      // Trigger grand warm confetti & light burst
+      const rect = giftBoxUnit.getBoundingClientRect();
+      triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 95, 'confetti');
+
+      startAudioPlayback();
+
+      setTimeout(() => {
+        switchScene('gallery');
+        renderGallery();
+      }, 750);
+    }, 420);
   });
 
   /* ────────────────────────────────────────────────────────────
@@ -501,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ────────────────────────────────────────────────────────────
-     9. SCENE 5: WISH BACK NAVIGATION
+     9. SCENE 5: WISH BACK NAVIGATION & CANDLE MAKE-A-WISH
   ──────────────────────────────────────────────────────────── */
   if (wishBackBtn) {
     wishBackBtn.addEventListener('click', () => {
@@ -509,6 +514,69 @@ document.addEventListener('DOMContentLoaded', () => {
       switchScene('gallery');
       renderGallery();
     });
+  }
+
+  // Interactive Birthday Candle: Tap to Make a Wish & Blow Flame
+  const candleBlock = document.getElementById('candle-interactive-block');
+  const candlePromptText = document.getElementById('candle-prompt-text');
+  let candleBlown = false;
+
+  if (candleBlock) {
+    candleBlock.addEventListener('click', () => {
+      if (candleBlown) return;
+      candleBlown = true;
+
+      candleBlock.classList.add('blown');
+
+      if (candlePromptText) {
+        candlePromptText.innerHTML = `
+          <span class="sparkle-sym">✦</span>
+          <span class="candle-label-text">ขอให้คำอธิษฐานของพี่เป็นจริงในทุกๆ วันนะ</span>
+          <span class="sparkle-sym">✦</span>
+        `;
+      }
+
+      const wishCardParchment = document.querySelector('.wish-card-parchment');
+      if (wishCardParchment) {
+        wishCardParchment.classList.add('wished');
+      }
+
+      // Trigger grand celebratory flower petal & golden sparkle shower
+      const rect = candleBlock.getBoundingClientRect();
+      triggerSparkleBurst(rect.left + rect.width / 2, rect.top, 95, 'petals');
+    });
+  }
+
+  // Touch Swipe Gesture Support for Memory Photo Cards
+  const postitViewport = document.querySelector('.postit-viewport');
+  if (postitViewport) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    postitViewport.addEventListener('touchstart', (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    postitViewport.addEventListener('touchend', (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 42) {
+        if (diffX < 0) {
+          // Swipe left -> Next card
+          if (nextBtn) nextBtn.click();
+        } else {
+          // Swipe right -> Prev card
+          if (prevBtn && !prevBtn.disabled) prevBtn.click();
+        }
+      }
+    }, { passive: true });
   }
 
   /* ────────────────────────────────────────────────────────────

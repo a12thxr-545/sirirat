@@ -181,8 +181,9 @@
         <h1 class="scene-heading">ข้อความถึงคุณ</h1>
         <p class="scene-subheading">เปิดซองจดหมายเพื่อเริ่มต้นเรื่องราว</p>
 
-        <!-- Perfect Sealed Envelope Structure -->
+        <!-- Perfect Sealed Envelope Structure with Radiant Aura -->
         <div class="envelope-container" id="envelope-trigger">
+          <div class="envelope-glow-aura" aria-hidden="true"></div>
           <div class="envelope-base">
             <!-- Letter Sheet (hidden inside until opened) -->
             <div class="envelope-letter" id="env-letter">
@@ -267,6 +268,8 @@
         <p class="scene-subheading">เปิดเสียงเพื่อเริ่มต้นความทรงจำ</p>
 
         <div class="gift-box-presentation" id="gift-box-unit">
+          <div class="gift-glow-halo" aria-hidden="true"></div>
+          <div class="gift-light-burst" id="gift-light-burst" aria-hidden="true"></div>
           <div class="gift-lid-structure" id="gift-lid-structure">
             <div class="ribbon-knot"></div>
             <div class="lid-top"></div>
@@ -384,6 +387,18 @@
             <div class="flower-unit fl-bot-5"><svg class="flower-svg" viewBox="0 0 46 46"><use href="#sym-tulip"></use></svg></div>
             <div class="flower-unit fl-bot-6"><svg class="flower-svg" viewBox="0 0 46 46"><use href="#sym-blossom"></use></svg></div>
             <div class="flower-unit fl-bot-7"><svg class="flower-svg" viewBox="0 0 44 44"><use href="#sym-leaf-sprig"></use></svg></div>
+
+            <!-- Magical Twinkling Fairy Lights intertwined with flowers -->
+            <div class="fairy-lights-layer" aria-hidden="true">
+              <span class="fairy-light ft-1"></span>
+              <span class="fairy-light ft-2"></span>
+              <span class="fairy-light ft-3"></span>
+              <span class="fairy-light ft-4"></span>
+              <span class="fairy-light ft-5"></span>
+              <span class="fairy-light ft-6"></span>
+              <span class="fairy-light ft-7"></span>
+              <span class="fairy-light ft-8"></span>
+            </div>
           </div>
 
           <article class="wish-card-parchment">
@@ -397,6 +412,29 @@
                 <path d="M18 9C16 6 19 5 20 7" stroke="#68C79B" stroke-width="1.2" stroke-linecap="round"/>
                 <path d="M64 9C66 6 63 5 62 7" stroke="#68C79B" stroke-width="1.2" stroke-linecap="round"/>
               </svg>
+            </div>
+
+            <!-- Interactive Birthday Cake & Make-a-Wish Candle Flame -->
+            <div class="interactive-candle-block" id="candle-interactive-block" role="button" tabindex="0" aria-label="แตะเพื่อเป่าเทียนอธิษฐาน">
+              <div class="cake-miniature">
+                <div class="cake-candle">
+                  <div class="flame-halo" id="candle-flame-halo"></div>
+                  <div class="flame-tear" id="candle-flame-tear">
+                    <div class="flame-inner"></div>
+                  </div>
+                  <div class="candle-wick"></div>
+                  <div class="candle-body"></div>
+                </div>
+                <div class="cake-base">
+                  <div class="frosting-layer"></div>
+                  <div class="sponge-layer"></div>
+                </div>
+              </div>
+              <div class="candle-prompt-text" id="candle-prompt-text">
+                <span class="sparkle-sym">✦</span>
+                <span class="candle-label-text">แตะที่เปลวเทียนเพื่ออธิษฐานวันเกิด</span>
+                <span class="sparkle-sym">✦</span>
+              </div>
             </div>
 
             <div class="card-pin"></div>
