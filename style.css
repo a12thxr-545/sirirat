@@ -1208,12 +1208,13 @@ html, body {
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .roses-behind-card {
   position: absolute;
-  inset: -15px;
+  inset: -15px -15px -14px -15px;
   pointer-events: none;
   z-index: 1;
 }
@@ -1255,27 +1256,27 @@ html, body {
 .fl-top-7 { top: -28px; right: 8px;  animation-delay: 0.05s, 1.15s !important; }
 
 /* Left Cascade (5 flowers) */
-.fl-left-1 { top: 15%; left: -26px; animation-delay: 0.15s, 1.25s !important; }
-.fl-left-2 { top: 32%; left: -32px; animation-delay: 0.22s, 1.32s !important; }
-.fl-left-3 { top: 50%; left: -30px; animation-delay: 0.28s, 1.38s !important; }
-.fl-left-4 { top: 68%; left: -28px; animation-delay: 0.34s, 1.44s !important; }
-.fl-left-5 { top: 82%; left: -22px; animation-delay: 0.40s, 1.50s !important; }
+.fl-left-1 { top: 12%; left: -26px; animation-delay: 0.15s, 1.25s !important; }
+.fl-left-2 { top: 28%; left: -32px; animation-delay: 0.22s, 1.32s !important; }
+.fl-left-3 { top: 46%; left: -30px; animation-delay: 0.28s, 1.38s !important; }
+.fl-left-4 { top: 64%; left: -28px; animation-delay: 0.34s, 1.44s !important; }
+.fl-left-5 { top: 80%; left: -22px; animation-delay: 0.40s, 1.50s !important; }
 
 /* Right Cascade (5 flowers) */
-.fl-right-1 { top: 15%; right: -26px; animation-delay: 0.15s, 1.25s !important; }
-.fl-right-2 { top: 32%; right: -32px; animation-delay: 0.22s, 1.32s !important; }
-.fl-right-3 { top: 50%; right: -30px; animation-delay: 0.28s, 1.38s !important; }
-.fl-right-4 { top: 68%; right: -28px; animation-delay: 0.34s, 1.44s !important; }
-.fl-right-5 { top: 82%; right: -22px; animation-delay: 0.40s, 1.50s !important; }
+.fl-right-1 { top: 12%; right: -26px; animation-delay: 0.15s, 1.25s !important; }
+.fl-right-2 { top: 28%; right: -32px; animation-delay: 0.22s, 1.32s !important; }
+.fl-right-3 { top: 46%; right: -30px; animation-delay: 0.28s, 1.38s !important; }
+.fl-right-4 { top: 64%; right: -28px; animation-delay: 0.34s, 1.44s !important; }
+.fl-right-5 { top: 80%; right: -22px; animation-delay: 0.40s, 1.50s !important; }
 
-/* Bottom Bed (7 flowers) */
-.fl-bot-1 { bottom: -24px; left: 10px;  animation-delay: 0.25s, 1.35s !important; }
-.fl-bot-2 { bottom: -34px; left: 24%;  animation-delay: 0.30s, 1.40s !important; }
-.fl-bot-3 { bottom: -38px; left: 38%;  animation-delay: 0.36s, 1.46s !important; }
-.fl-bot-4 { bottom: -40px; left: 50%; transform: translateX(-50%); animation-delay: 0.42s, 1.52s !important; }
-.fl-bot-5 { bottom: -38px; right: 38%; animation-delay: 0.36s, 1.46s !important; }
-.fl-bot-6 { bottom: -34px; right: 24%; animation-delay: 0.30s, 1.40s !important; }
-.fl-bot-7 { bottom: -24px; right: 10px; animation-delay: 0.25s, 1.35s !important; }
+/* Bottom Floral Bed (Blooming Directly Behind & Framing the Back Button) */
+.fl-bot-1 { bottom: 2px;   left: 12px;  animation-delay: 0.22s, 1.32s !important; }
+.fl-bot-2 { bottom: -18px; left: 20%;   animation-delay: 0.28s, 1.38s !important; }
+.fl-bot-3 { bottom: -24px; left: 35%;   animation-delay: 0.34s, 1.44s !important; }
+.fl-bot-4 { bottom: -28px; left: 50%; transform: translateX(-50%); animation-delay: 0.40s, 1.50s !important; }
+.fl-bot-5 { bottom: -24px; right: 35%;  animation-delay: 0.34s, 1.44s !important; }
+.fl-bot-6 { bottom: -18px; right: 20%;  animation-delay: 0.28s, 1.38s !important; }
+.fl-bot-7 { bottom: 2px;   right: 12px; animation-delay: 0.22s, 1.32s !important; }
 
 @keyframes flowerBloom {
   0% {
@@ -1480,6 +1481,25 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+
+.wish-back-container .btn-outline {
+  position: relative;
+  z-index: 6;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-pink-soft);
+  box-shadow: 0 4px 16px rgba(255, 90, 140, 0.16), 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.wish-back-container .btn-outline:hover:not(:disabled) {
+  background: #FFFFFF;
+  border-color: var(--color-pink-primary);
+  color: var(--color-pink-primary);
+  box-shadow: 0 6px 22px rgba(255, 90, 140, 0.25);
+  transform: translateY(-2px);
 }
 
 .credits-note {
@@ -1635,6 +1655,14 @@ html, body {
   .fl-right-1, .fl-right-2, .fl-right-3, .fl-right-4, .fl-right-5 { right: -16px; }
   .rose-left-mid { left: -16px; }
   .rose-right-mid { right: -16px; }
+
+  .fl-bot-1 { bottom: 4px; left: 8px; }
+  .fl-bot-7 { bottom: 4px; right: 8px; }
+  .fl-bot-2 { bottom: -14px; left: 16%; }
+  .fl-bot-6 { bottom: -14px; right: 16%; }
+  .fl-bot-3 { bottom: -20px; left: 32%; }
+  .fl-bot-5 { bottom: -20px; right: 32%; }
+  .fl-bot-4 { bottom: -24px; left: 50%; }
 
   .deco-unit {
     width: 38px;
