@@ -112,6 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
     envelopeTrigger.classList.add('opened');
     openEnvelopeBtn.disabled = true;
 
+    // Trigger golden-rose light burst from the envelope
+    const rect = envelopeTrigger.getBoundingClientRect();
+    triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 45, 'stars');
+
     setTimeout(() => {
       switchScene('chat');
       initChatDialogue();
@@ -244,6 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
     giftTriggered = true;
 
     giftBoxUnit.classList.add('opened');
+
+    // Trigger grand warm confetti burst
+    const rect = giftBoxUnit.getBoundingClientRect();
+    triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 90, 'confetti');
 
     startAudioPlayback();
 
@@ -426,7 +434,235 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ────────────────────────────────────────────────────────────
-     10. HELPER FUNCTIONS
+     10. VISUAL PARTICLES & AMBIENT CANVAS SYSTEM
+     (Warm Bokeh, Soft Golden Glitter & Elegant Ribbon Confetti)
+     Strictly Zero Emojis. Pure Canvas Geometry & Physics.
+  ──────────────────────────────────────────────────────────── */
+  const ambientCanvas = document.getElementById('ambient-canvas');
+  const burstCanvas   = document.getElementById('burst-canvas');
+  const actx          = ambientCanvas ? ambientCanvas.getContext('2d') : null;
+  const bctx          = burstCanvas ? burstCanvas.getContext('2d') : null;
+
+  let windowWidth  = window.innerWidth;
+  let windowHeight = window.innerHeight;
+
+  function resizeCanvases() {
+    windowWidth  = window.innerWidth;
+    windowHeight = window.innerHeight;
+    if (ambientCanvas) {
+      ambientCanvas.width  = windowWidth;
+      ambientCanvas.height = windowHeight;
+    }
+    if (burstCanvas) {
+      burstCanvas.width  = windowWidth;
+      burstCanvas.height = windowHeight;
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvases);
+  resizeCanvases();
+
+  // Floating ambient warm lights & bokeh motes
+  const ambientParticles = [];
+  const PALETTE = [
+    'rgba(255, 140, 175, 0.45)', // Rose Pink
+    'rgba(255, 185, 205, 0.40)', // Blossom Blush
+    'rgba(255, 215, 150, 0.45)', // Warm Gold
+    'rgba(255, 235, 190, 0.35)', // Champagne
+    'rgba(255, 105, 150, 0.30)'  // Coral Rose
+  ];
+
+  const PARTICLE_COUNT = Math.min(32, Math.floor(windowWidth / 14));
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    ambientParticles.push({
+      x: Math.random() * windowWidth,
+      y: Math.random() * windowHeight,
+      radius: Math.random() * 4.5 + 2,
+      color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -Math.random() * 0.45 - 0.15,
+      alpha: Math.random() * 0.6 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: Math.random() * 0.02 + 0.01
+    });
+  }
+
+  // Interactive touch / cursor trail particles
+  const trailParticles = [];
+  function addTouchSpark(px, py) {
+    if (trailParticles.length > 25) return;
+    for (let k = 0; k < 2; k++) {
+      trailParticles.push({
+        x: px + (Math.random() - 0.5) * 16,
+        y: py + (Math.random() - 0.5) * 16,
+        size: Math.random() * 3 + 1.5,
+        color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2 - 0.4,
+        alpha: 1,
+        life: 1,
+        decay: Math.random() * 0.03 + 0.02
+      });
+    }
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    if (Math.random() > 0.4) addTouchSpark(e.clientX, e.clientY);
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0] && Math.random() > 0.3) {
+      addTouchSpark(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  function renderAmbient() {
+    if (!actx) return;
+    actx.clearRect(0, 0, windowWidth, windowHeight);
+
+    // Render floating bokeh motes
+    for (let i = 0; i < ambientParticles.length; i++) {
+      const p = ambientParticles[i];
+      p.phase += p.phaseSpeed;
+      p.x += p.vx + Math.sin(p.phase) * 0.25;
+      p.y += p.vy;
+
+      if (p.y < -20) {
+        p.y = windowHeight + 20;
+        p.x = Math.random() * windowWidth;
+      }
+      if (p.x < -20) p.x = windowWidth + 20;
+      if (p.x > windowWidth + 20) p.x = -20;
+
+      const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+      actx.beginPath();
+      actx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      actx.fillStyle = p.color;
+      actx.globalAlpha = currentAlpha;
+      actx.fill();
+    }
+
+    // Render touch trails
+    for (let i = trailParticles.length - 1; i >= 0; i--) {
+      const tp = trailParticles[i];
+      tp.x += tp.vx;
+      tp.y += tp.vy;
+      tp.life -= tp.decay;
+
+      if (tp.life <= 0) {
+        trailParticles.splice(i, 1);
+        continue;
+      }
+
+      actx.beginPath();
+      // Draw 4-point twinkle star
+      const s = tp.size * tp.life;
+      actx.moveTo(tp.x, tp.y - s);
+      actx.lineTo(tp.x + s * 0.3, tp.y - s * 0.3);
+      actx.lineTo(tp.x + s, tp.y);
+      actx.lineTo(tp.x + s * 0.3, tp.y + s * 0.3);
+      actx.lineTo(tp.x, tp.y + s);
+      actx.lineTo(tp.x - s * 0.3, tp.y + s * 0.3);
+      actx.lineTo(tp.x - s, tp.y);
+      actx.lineTo(tp.x - s * 0.3, tp.y - s * 0.3);
+      actx.closePath();
+      actx.fillStyle = tp.color;
+      actx.globalAlpha = tp.life;
+      actx.fill();
+    }
+
+    actx.globalAlpha = 1;
+    requestAnimationFrame(renderAmbient);
+  }
+  requestAnimationFrame(renderAmbient);
+
+  // Burst Particles System (For Envelope & Gift Open)
+  const burstParticles = [];
+
+  function triggerSparkleBurst(ox, oy, count = 50, type = 'stars') {
+    const burstColors = [
+      '#FF5A8C', '#FFA5C0', '#FFE4EC', '#FFD79E', '#EAA844', '#FFFFFF'
+    ];
+
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+      const speed = Math.random() * (type === 'confetti' ? 9 : 6) + 2.5;
+
+      burstParticles.push({
+        x: ox,
+        y: oy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - (type === 'confetti' ? 3.5 : 1.5),
+        gravity: type === 'confetti' ? 0.22 : 0.08,
+        color: burstColors[Math.floor(Math.random() * burstColors.length)],
+        width: type === 'confetti' ? Math.random() * 7 + 4 : Math.random() * 4 + 2,
+        height: type === 'confetti' ? Math.random() * 12 + 6 : Math.random() * 4 + 2,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.2,
+        alpha: 1,
+        life: 1,
+        decay: Math.random() * 0.015 + 0.012,
+        type: type
+      });
+    }
+
+    if (burstParticles.length === count) {
+      requestAnimationFrame(renderBurst);
+    }
+  }
+
+  function renderBurst() {
+    if (!bctx) return;
+    bctx.clearRect(0, 0, windowWidth, windowHeight);
+
+    for (let i = burstParticles.length - 1; i >= 0; i--) {
+      const p = burstParticles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += p.gravity;
+      p.vx *= 0.985;
+      p.rotation += p.rotSpeed;
+      p.life -= p.decay;
+
+      if (p.life <= 0 || p.y > windowHeight + 40) {
+        burstParticles.splice(i, 1);
+        continue;
+      }
+
+      bctx.save();
+      bctx.translate(p.x, p.y);
+      bctx.rotate(p.rotation);
+      bctx.globalAlpha = Math.max(0, p.life);
+      bctx.fillStyle = p.color;
+
+      if (p.type === 'confetti') {
+        // Elegant ribbon strips
+        bctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
+      } else {
+        // Sparkling diamonds
+        bctx.beginPath();
+        bctx.moveTo(0, -p.height);
+        bctx.lineTo(p.width, 0);
+        bctx.lineTo(0, p.height);
+        bctx.lineTo(-p.width, 0);
+        bctx.closePath();
+        bctx.fill();
+      }
+      bctx.restore();
+    }
+
+    if (burstParticles.length > 0) {
+      requestAnimationFrame(renderBurst);
+    } else {
+      bctx.clearRect(0, 0, windowWidth, windowHeight);
+    }
+  }
+
+  // Expose triggerSparkleBurst to outer scopes
+  window.triggerSparkleBurst = triggerSparkleBurst;
+
+  /* ────────────────────────────────────────────────────────────
+     11. HELPER FUNCTIONS
   ──────────────────────────────────────────────────────────── */
   function escapeHtml(text) {
     const div = document.createElement('div');
