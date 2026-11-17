@@ -53,9 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
     wish:     document.getElementById('scene-wish')
   };
 
-  // Envelope Elements
-  const envelopeTrigger = document.getElementById('envelope-trigger');
-  const openEnvelopeBtn = document.getElementById('open-envelope-btn');
+  // Hero Cat Elements
+  const heroCatBtn = document.getElementById('hero-cat-btn');
 
   // Chat Elements
   const chatArea       = document.getElementById('chat-dialogue-area');
@@ -114,29 +113,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ────────────────────────────────────────────────────────────
-     4. SCENE 1: ENVELOPE CONTROLLER
+     4. SCENE 1: INTERACTIVE CAT CONTROLLER
   ──────────────────────────────────────────────────────────── */
-  let envelopeOpened = false;
+  let catTriggered = false;
 
-  function handleOpenEnvelope() {
-    if (envelopeOpened) return;
-    envelopeOpened = true;
+  function handleCatClick() {
+    if (catTriggered) return;
+    catTriggered = true;
 
-    envelopeTrigger.classList.add('opened');
-    openEnvelopeBtn.disabled = true;
+    if (heroCatBtn) {
+      heroCatBtn.classList.add('cat-activated');
+      const rect = heroCatBtn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height * 0.45;
 
-    // Trigger golden-rose light burst from the envelope
-    const rect = envelopeTrigger.getBoundingClientRect();
-    triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 45, 'stars');
+      // Celebrate click with sparkling stars burst
+      triggerSparkleBurst(centerX, centerY, 55, 'stars');
+    }
 
     setTimeout(() => {
       switchScene('chat');
       initChatDialogue();
-    }, 850);
+    }, 700);
   }
 
-  openEnvelopeBtn.addEventListener('click', handleOpenEnvelope);
-  envelopeTrigger.addEventListener('click', handleOpenEnvelope);
+  if (heroCatBtn) {
+    heroCatBtn.addEventListener('click', handleCatClick);
+    heroCatBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCatClick();
+      }
+    });
+  }
 
   /* ────────────────────────────────────────────────────────────
      5. SCENE 2: LINE-STYLE DIALOGUE CONTROLLER

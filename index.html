@@ -173,42 +173,100 @@
   <main class="app-viewport">
 
     <!-- ══════════════════════════════════════════════
-         SCENE 1: ENVELOPE (BEAUTIFUL CLOSED PINK ENVELOPE)
+         SCENE 1: PHOTO BACKGROUND & INTERACTIVE CAT
     ══════════════════════════════════════════════ -->
     <section id="scene-envelope" class="scene active">
-      <div class="envelope-wrapper">
-        <span class="badge-tag">A Special Note</span>
-        <h1 class="scene-heading">ข้อความถึงคุณ</h1>
-        <p class="scene-subheading">เปิดซองจดหมายเพื่อเริ่มต้นเรื่องราว</p>
+      <div class="scene-hero-bg-layer" aria-hidden="true">
+        <img class="scene-hero-img" src="png/IMG_7428.jpg" alt="Background Photo" />
+        <div class="scene-hero-gradient-overlay"></div>
+      </div>
 
-        <!-- Perfect Sealed Envelope Structure with Radiant Aura -->
-        <div class="envelope-container" id="envelope-trigger">
-          <div class="envelope-glow-aura" aria-hidden="true"></div>
-          <div class="envelope-base">
-            <!-- Letter Sheet (hidden inside until opened) -->
-            <div class="envelope-letter" id="env-letter">
-              <span class="letter-monogram">For Sirirat</span>
-              <div class="letter-divider"></div>
-            </div>
+      <div class="hero-cat-content">
+        <span class="badge-tag glow-badge">A Special Surprise</span>
+        <h1 class="scene-heading hero-heading">สุขสันต์วันพิเศษนะ</h1>
+        <p class="scene-subheading hero-subheading">แตะที่เจ้าเหมียวเพื่อเปิดดูเรื่องราวของเรา</p>
 
-            <!-- Front Pocket Structure -->
-            <div class="envelope-pocket"></div>
+        <!-- Interactive Cat Trigger -->
+        <div class="hero-cat-wrapper" id="hero-cat-btn" role="button" tabindex="0" aria-label="แตะที่น้องแมวเพื่อไปต่อ">
+          <div class="cat-ambient-glow" aria-hidden="true"></div>
+          <div class="cat-svg-container">
+            <svg class="hero-cat-svg" viewBox="0 0 160 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="catBodyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFFDF9"/>
+                  <stop offset="100%" stop-color="#FCECE6"/>
+                </linearGradient>
+                <linearGradient id="catEarGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFA8C2"/>
+                  <stop offset="100%" stop-color="#FF759E"/>
+                </linearGradient>
+                <linearGradient id="catCollarGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#FF5A8C"/>
+                  <stop offset="100%" stop-color="#FF8EAF"/>
+                </linearGradient>
+              </defs>
 
-            <!-- Flap (Folds on top with seal) -->
-            <div class="envelope-flap" id="env-flap">
-              <div class="envelope-seal">
-                <span>T</span>
-              </div>
-            </div>
+              <!-- Wagging Tail -->
+              <path class="cat-tail" d="M125 130C140 120 152 95 142 80C136 72 126 78 128 86C131 98 124 116 112 128" stroke="#FCECE6" stroke-width="12" stroke-linecap="round"/>
+
+              <!-- Cat Body -->
+              <ellipse cx="80" cy="125" rx="46" ry="32" fill="url(#catBodyGrad)"/>
+
+              <!-- Paws -->
+              <ellipse cx="64" cy="148" rx="13" ry="10" fill="#FFFFFF" stroke="#F0D3C9" stroke-width="1.5"/>
+              <ellipse cx="96" cy="148" rx="13" ry="10" fill="#FFFFFF" stroke="#F0D3C9" stroke-width="1.5"/>
+              <path d="M60 148V152M68 148V152" stroke="#E2BCB0" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M92 148V152M100 148V152" stroke="#E2BCB0" stroke-width="1.5" stroke-linecap="round"/>
+
+              <!-- Ears -->
+              <polygon points="36,65 48,22 76,50" fill="url(#catBodyGrad)"/>
+              <polygon points="42,58 52,32 70,50" fill="url(#catEarGrad)"/>
+              <polygon points="124,65 112,22 84,50" fill="url(#catBodyGrad)"/>
+              <polygon points="118,58 108,32 90,50" fill="url(#catEarGrad)"/>
+
+              <!-- Head -->
+              <circle cx="80" cy="76" r="44" fill="url(#catBodyGrad)"/>
+
+              <!-- Forehead fur marking -->
+              <path d="M80 40V50M74 42V48M86 42V48" stroke="#F5C3B2" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+
+              <!-- Sparkly Big Eyes -->
+              <g class="cat-eyes">
+                <ellipse cx="60" cy="72" rx="7.5" ry="9.5" fill="#2D2124"/>
+                <ellipse cx="62" cy="69" rx="3" ry="4" fill="#FFFFFF"/>
+                <circle cx="58" cy="75" r="1.5" fill="#FFFFFF"/>
+
+                <ellipse cx="100" cy="72" rx="7.5" ry="9.5" fill="#2D2124"/>
+                <ellipse cx="102" cy="69" rx="3" ry="4" fill="#FFFFFF"/>
+                <circle cx="98" cy="75" r="1.5" fill="#FFFFFF"/>
+              </g>
+
+              <!-- Blushing Cheeks -->
+              <ellipse cx="50" cy="85" rx="8" ry="4.5" fill="#FFAEC3" opacity="0.8"/>
+              <ellipse cx="110" cy="85" rx="8" ry="4.5" fill="#FFAEC3" opacity="0.8"/>
+
+              <!-- Nose & Cute Cat Mouth -->
+              <polygon points="76,82 84,82 80,87" fill="#FF658F"/>
+              <path d="M74 88C77 92 80 92 80 88C80 92 83 92 86 88" stroke="#FF658F" stroke-width="2" stroke-linecap="round"/>
+
+              <!-- Whiskers -->
+              <path d="M34 80L50 82M32 88L48 87M34 96L50 92" stroke="#DFC4BB" stroke-width="2" stroke-linecap="round"/>
+              <path d="M126 80L110 82M128 88L112 87M126 96L110 92" stroke="#DFC4BB" stroke-width="2" stroke-linecap="round"/>
+
+              <!-- Collar & Bell -->
+              <path d="M52 110C68 118 92 118 108 110" stroke="url(#catCollarGrad)" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="80" cy="116" r="5" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+              <circle cx="80" cy="116" r="1.5" fill="#FFFFFF"/>
+            </svg>
+          </div>
+
+          <!-- Interactive Hint Pill -->
+          <div class="cat-speech-pill">
+            <span class="cat-sparkle-icon">✦</span>
+            <span>แตะที่เค้าสิ~</span>
+            <span class="cat-sparkle-icon">✦</span>
           </div>
         </div>
-
-        <button id="open-envelope-btn" class="btn-primary" type="button">
-          <span>แตะเปิดซองจดหมาย</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
       </div>
     </section>
 
