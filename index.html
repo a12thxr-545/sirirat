@@ -27,7 +27,15 @@
         <div class="vinyl-core"></div>
       </div>
       <div class="player-meta">
-        <span class="player-title">What Is Life</span>
+        <div class="player-title-row">
+          <span class="player-title">What Is Life</span>
+          <div class="audio-eq-bars" id="audio-eq-bars" aria-hidden="true">
+            <span class="eq-bar bar-1"></span>
+            <span class="eq-bar bar-2"></span>
+            <span class="eq-bar bar-3"></span>
+            <span class="eq-bar bar-4"></span>
+          </div>
+        </div>
         <span class="player-artist">The Toys</span>
       </div>
       <button id="audio-toggle-btn" class="player-ctrl" type="button" aria-label="Play or Pause">
@@ -184,6 +192,7 @@
         <!-- Perfect Sealed Envelope Structure with Radiant Aura -->
         <div class="envelope-container" id="envelope-trigger">
           <div class="envelope-glow-aura" aria-hidden="true"></div>
+          <div class="envelope-rays-aura" aria-hidden="true"></div>
           <div class="envelope-base">
             <!-- Letter Sheet (hidden inside until opened) -->
             <div class="envelope-letter" id="env-letter">
@@ -197,7 +206,8 @@
             <!-- Flap (Folds on top with seal) -->
             <div class="envelope-flap" id="env-flap">
               <div class="envelope-seal">
-                <span>T</span>
+                <span class="seal-letter">T</span>
+                <span class="seal-shimmer-sweep" aria-hidden="true"></span>
               </div>
             </div>
           </div>
@@ -268,6 +278,12 @@
 
         <div class="gift-box-presentation" id="gift-box-unit">
           <div class="gift-glow-halo" aria-hidden="true"></div>
+          <div class="gift-orbit-sparks" aria-hidden="true">
+            <span class="orbit-spark os-1">✦</span>
+            <span class="orbit-spark os-2">✦</span>
+            <span class="orbit-spark os-3">✦</span>
+            <span class="orbit-spark os-4">✦</span>
+          </div>
           <div class="gift-light-burst" id="gift-light-burst" aria-hidden="true"></div>
           <div class="gift-lid-structure" id="gift-lid-structure">
             <div class="ribbon-knot"></div>
@@ -420,6 +436,11 @@
                   <div class="flame-halo" id="candle-flame-halo"></div>
                   <div class="flame-tear" id="candle-flame-tear">
                     <div class="flame-inner"></div>
+                  </div>
+                  <div class="flame-smoke" id="candle-smoke" aria-hidden="true">
+                    <span class="smoke-puff sp-1"></span>
+                    <span class="smoke-puff sp-2"></span>
+                    <span class="smoke-puff sp-3"></span>
                   </div>
                   <div class="candle-wick"></div>
                   <div class="candle-body"></div>

@@ -295,14 +295,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setPlayState(playing) {
     isPlaying = playing;
+    const eqBars = document.getElementById('audio-eq-bars');
     if (playing) {
       iconPlay.classList.add('hidden');
       iconPause.classList.remove('hidden');
       vinylDisc.classList.add('spin');
+      if (eqBars) eqBars.classList.add('playing');
     } else {
       iconPlay.classList.remove('hidden');
       iconPause.classList.add('hidden');
       vinylDisc.classList.remove('spin');
+      if (eqBars) eqBars.classList.remove('playing');
     }
   }
 
@@ -408,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cardDecos = CARD_DECORATIONS[index] || CARD_DECORATIONS[0];
       cardDecos.forEach(d => {
         const deco = document.createElement('span');
-        deco.className = 'deco-unit';
+        deco.className = `deco-unit deco-${d.sym.replace('#sym-', '')}`;
         deco.innerHTML = `<svg class="deco-vector-svg" viewBox="${d.viewBox}"><use href="${d.sym}"></use></svg>`;
         if (d.top) deco.style.top = d.top;
         if (d.bottom) deco.style.bottom = d.bottom;
@@ -541,9 +544,14 @@ document.addEventListener('DOMContentLoaded', () => {
         wishCardParchment.classList.add('wished');
       }
 
-      // Trigger grand celebratory flower petal & golden sparkle shower
+      // Trigger grand celebratory flower petal & golden sparkle shower in two cascading waves
       const rect = candleBlock.getBoundingClientRect();
-      triggerSparkleBurst(rect.left + rect.width / 2, rect.top, 95, 'petals');
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + 8;
+      triggerSparkleBurst(cx, cy, 75, 'petals');
+      setTimeout(() => {
+        triggerSparkleBurst(cx, cy, 60, 'stars');
+      }, 250);
     });
   }
 
@@ -608,43 +616,51 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resizeCanvases);
   resizeCanvases();
 
-  // Floating ambient warm lights & bokeh motes
+  // Floating ambient warm lights, twinkling stars & drifting blossom petals
   const ambientParticles = [];
   const PALETTE = [
     'rgba(255, 140, 175, 0.45)', // Rose Pink
     'rgba(255, 185, 205, 0.40)', // Blossom Blush
     'rgba(255, 215, 150, 0.45)', // Warm Gold
     'rgba(255, 235, 190, 0.35)', // Champagne
-    'rgba(255, 105, 150, 0.30)'  // Coral Rose
+    'rgba(255, 105, 150, 0.30)', // Coral Rose
+    'rgba(255, 245, 220, 0.40)'  // Starlight Ivory
   ];
 
-  const PARTICLE_COUNT = Math.min(32, Math.floor(windowWidth / 14));
+  const PARTICLE_COUNT = Math.min(42, Math.floor(windowWidth / 10));
   for (let i = 0; i < PARTICLE_COUNT; i++) {
+    // 3 varieties: bokeh (50%), twinkling stars (25%), drifting flower petals (25%)
+    const randType = Math.random();
+    const type = randType < 0.5 ? 'bokeh' : (randType < 0.75 ? 'star' : 'petal');
+
     ambientParticles.push({
+      type: type,
       x: Math.random() * windowWidth,
       y: Math.random() * windowHeight,
-      radius: Math.random() * 4.5 + 2,
+      radius: type === 'petal' ? (Math.random() * 4 + 3) : (type === 'star' ? (Math.random() * 3.5 + 2) : (Math.random() * 5 + 2)),
       color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: -Math.random() * 0.45 - 0.15,
-      alpha: Math.random() * 0.6 + 0.2,
+      vx: (Math.random() - 0.5) * (type === 'petal' ? 0.6 : 0.35),
+      vy: type === 'petal' ? (Math.random() * 0.45 + 0.35) : (-Math.random() * 0.45 - 0.15),
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.04,
+      alpha: Math.random() * 0.55 + 0.25,
       phase: Math.random() * Math.PI * 2,
-      phaseSpeed: Math.random() * 0.02 + 0.01
+      phaseSpeed: Math.random() * 0.025 + 0.012
     });
   }
 
   // Interactive touch / cursor trail particles
   const trailParticles = [];
   function addTouchSpark(px, py) {
-    if (trailParticles.length > 25) return;
+    if (trailParticles.length > 40) return;
     for (let k = 0; k < 2; k++) {
       trailParticles.push({
         x: px + (Math.random() - 0.5) * 16,
         y: py + (Math.random() - 0.5) * 16,
-        size: Math.random() * 3 + 1.5,
+        size: Math.random() * 3.5 + 1.8,
         color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: (Math.random() - 0.5) * 1.2 - 0.4,
+        vx: (Math.random() - 0.5) * 1.4,
+        vy: (Math.random() - 0.5) * 1.4 - 0.4,
         alpha: 1,
         life: 1,
         decay: Math.random() * 0.03 + 0.02
@@ -652,12 +668,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Instant magical burst on pointer click/tap
+  function addPointerClickBurst(px, py) {
+    if (trailParticles.length > 55) return;
+    const count = 7;
+    for (let k = 0; k < count; k++) {
+      const angle = (Math.PI * 2 * k) / count + (Math.random() - 0.5) * 0.3;
+      const speed = Math.random() * 2.4 + 1.2;
+      trailParticles.push({
+        x: px,
+        y: py,
+        size: Math.random() * 4 + 2,
+        color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 1,
+        life: 1,
+        decay: Math.random() * 0.035 + 0.02
+      });
+    }
+  }
+
+  window.addEventListener('pointerdown', (e) => {
+    addPointerClickBurst(e.clientX, e.clientY);
+  }, { passive: true });
+
   window.addEventListener('pointermove', (e) => {
-    if (Math.random() > 0.4) addTouchSpark(e.clientX, e.clientY);
+    if (Math.random() > 0.35) addTouchSpark(e.clientX, e.clientY);
   }, { passive: true });
 
   window.addEventListener('touchmove', (e) => {
-    if (e.touches && e.touches[0] && Math.random() > 0.3) {
+    if (e.touches && e.touches[0] && Math.random() > 0.25) {
       addTouchSpark(e.touches[0].clientX, e.touches[0].clientY);
     }
   }, { passive: true });
@@ -666,29 +707,76 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!actx) return;
     actx.clearRect(0, 0, windowWidth, windowHeight);
 
-    // Render floating bokeh motes
+    // Render floating ambient entities (bokeh, stars, petals)
     for (let i = 0; i < ambientParticles.length; i++) {
       const p = ambientParticles[i];
       p.phase += p.phaseSpeed;
-      p.x += p.vx + Math.sin(p.phase) * 0.25;
-      p.y += p.vy;
+      p.rotation += p.rotSpeed;
 
-      if (p.y < -20) {
-        p.y = windowHeight + 20;
-        p.x = Math.random() * windowWidth;
+      if (p.type === 'petal') {
+        // Petals drift downwards with sinusoidal wind sway
+        p.x += p.vx + Math.sin(p.phase) * 0.55;
+        p.y += p.vy;
+        if (p.y > windowHeight + 20) {
+          p.y = -20;
+          p.x = Math.random() * windowWidth;
+        }
+      } else {
+        // Bokeh & Stars float gently upwards
+        p.x += p.vx + Math.sin(p.phase) * 0.3;
+        p.y += p.vy;
+        if (p.y < -20) {
+          p.y = windowHeight + 20;
+          p.x = Math.random() * windowWidth;
+        }
       }
+
       if (p.x < -20) p.x = windowWidth + 20;
       if (p.x > windowWidth + 20) p.x = -20;
 
-      const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
-      actx.beginPath();
-      actx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      actx.fillStyle = p.color;
-      actx.globalAlpha = currentAlpha;
-      actx.fill();
+      const currentAlpha = p.alpha * (0.65 + 0.35 * Math.sin(p.phase));
+
+      if (p.type === 'bokeh') {
+        actx.beginPath();
+        actx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        actx.fillStyle = p.color;
+        actx.globalAlpha = currentAlpha;
+        actx.fill();
+      } else if (p.type === 'star') {
+        // Twinkling 4-point star
+        const s = p.radius * (0.7 + 0.3 * Math.sin(p.phase));
+        actx.save();
+        actx.translate(p.x, p.y);
+        actx.rotate(p.rotation);
+        actx.beginPath();
+        actx.moveTo(0, -s);
+        actx.lineTo(s * 0.32, -s * 0.32);
+        actx.lineTo(s, 0);
+        actx.lineTo(s * 0.32, s * 0.32);
+        actx.lineTo(0, s);
+        actx.lineTo(-s * 0.32, s * 0.32);
+        actx.lineTo(-s, 0);
+        actx.lineTo(-s * 0.32, -s * 0.32);
+        actx.closePath();
+        actx.fillStyle = p.color;
+        actx.globalAlpha = currentAlpha;
+        actx.fill();
+        actx.restore();
+      } else if (p.type === 'petal') {
+        // Delicate blossom petal
+        actx.save();
+        actx.translate(p.x, p.y);
+        actx.rotate(p.rotation + Math.sin(p.phase) * 0.4);
+        actx.beginPath();
+        actx.ellipse(0, 0, p.radius * 1.3, p.radius * 0.75, 0, 0, Math.PI * 2);
+        actx.fillStyle = p.color;
+        actx.globalAlpha = currentAlpha * 0.9;
+        actx.fill();
+        actx.restore();
+      }
     }
 
-    // Render touch trails
+    // Render touch & click trail sparkles
     for (let i = trailParticles.length - 1; i >= 0; i--) {
       const tp = trailParticles[i];
       tp.x += tp.vx;
