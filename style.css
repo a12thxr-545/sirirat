@@ -780,6 +780,57 @@ html, body {
   color: var(--color-stone);
 }
 
+.chat-react-btn {
+  background: linear-gradient(135deg, rgba(255, 90, 140, 0.08) 0%, rgba(255, 180, 200, 0.16) 100%);
+  border: 1px solid rgba(255, 90, 140, 0.35);
+  border-radius: 20px;
+  padding: 6px 13px;
+  font-family: var(--font-thai);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-pink-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(255, 90, 140, 0.1);
+}
+
+.chat-react-btn:hover {
+  background: var(--color-pink-primary);
+  color: #FFFFFF;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 90, 140, 0.3);
+}
+
+.chat-react-btn:active {
+  transform: scale(0.95);
+}
+
+.chat-floating-blossom {
+  position: absolute;
+  bottom: 10px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  animation: chatBlossomFloat 2.1s ease-out forwards;
+  z-index: 10;
+}
+
+.chat-floating-blossom svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 6px rgba(255, 90, 140, 0.4));
+}
+
+@keyframes chatBlossomFloat {
+  0% { transform: translateY(0) scale(0.4) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.95; transform: translateY(-40px) scale(1.1) rotate(20deg); }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-260px) scale(0.8) rotate(140deg); opacity: 0; }
+}
+
 .chat-dialogue-area {
   flex: 1;
   padding: 18px 16px;
@@ -1265,13 +1316,187 @@ html, body {
   margin-top: 6px;
 }
 
-/* Single Card Display — No overlapping bug */
 .postit-card {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(18px) scale(0.97);
   transition: opacity 0.4s ease, transform 0.4s var(--transition-smooth), visibility 0.4s;
+  perspective: 1200px;
+}
+
+.postit-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.postit-card.flipped .postit-card-inner {
+  transform: rotateY(180deg);
+}
+
+.postit-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: var(--shadow-postit);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 16px;
+  overflow: visible;
+}
+
+.card-front {
+  background: #FFFFFF;
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: linear-gradient(155deg, #FFFDF8 0%, #FFF7F0 50%, #FFEDF3 100%);
+  transform: rotateY(180deg);
+  border: 1px solid #F5E0D0;
+  box-shadow: 0 16px 36px rgba(255, 140, 180, 0.22), inset 0 0 32px rgba(255, 230, 205, 0.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 18px 18px;
+  z-index: 1;
+}
+
+.washi-back {
+  background: linear-gradient(135deg, rgba(255, 218, 140, 0.8) 0%, rgba(255, 185, 205, 0.8) 100%) !important;
+}
+
+/* Front Face Elements */
+.postit-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn-flip-card {
+  background: rgba(255, 90, 140, 0.08);
+  border: 1px solid rgba(255, 90, 140, 0.25);
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-family: var(--font-thai);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-pink-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-flip-card:hover {
+  background: var(--color-pink-primary);
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+
+.photo-glare-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Back Face Secret Note Elements */
+.secret-card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.secret-stamp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: rgba(212, 140, 90, 0.12);
+  border: 1.2px dashed #D4805A;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B56038;
+}
+
+.secret-note-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 4px;
+  text-align: center;
+}
+
+.secret-note-text {
+  font-family: var(--font-thai);
+  font-size: 1.05rem;
+  color: #3D2B24;
+  line-height: 1.85;
+  font-weight: 400;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.secret-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(212, 140, 90, 0.2);
+  padding-top: 12px;
+}
+
+.secret-seal-mark {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.secret-seal-mark .seal-svg {
+  width: 22px;
+  height: 22px;
+}
+
+.secret-seal-mark .seal-text {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-pink-primary);
+  letter-spacing: 0.05em;
+}
+
+.btn-flip-back {
+  background: none;
+  border: 1px solid rgba(255, 90, 140, 0.3);
+  border-radius: 14px;
+  padding: 4px 12px;
+  font-family: var(--font-thai);
+  font-size: 0.72rem;
+  color: var(--color-pink-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-flip-back:hover {
+  background: rgba(255, 90, 140, 0.1);
+  transform: scale(1.05);
 }
 
 .postit-card.state-active {
@@ -1983,6 +2208,55 @@ html, body {
   }
 }
 
+/* Interactive Companion Pet Click Reaction */
+.deco-unit.interactive-pet {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+
+.deco-unit.interactive-pet:hover {
+  transform: scale(1.22) !important;
+  filter: drop-shadow(0 8px 18px rgba(255, 90, 140, 0.5));
+}
+
+.deco-unit.pet-jump {
+  animation: petHopBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+@keyframes petHopBounce {
+  0% { transform: scale(1) translateY(0); }
+  35% { transform: scale(1.35) translateY(-18px) rotate(-8deg); }
+  75% { transform: scale(0.9) translateY(4px) rotate(6deg); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Floating Companion Reaction Pill */
+.companion-reaction-pill {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid #FFCADB;
+  box-shadow: 0 4px 16px rgba(255, 90, 140, 0.3);
+  backdrop-filter: blur(8px);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: var(--font-thai);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-pink-primary);
+  pointer-events: none;
+  z-index: 999;
+  animation: pillFloatFade 1.6s ease-out forwards;
+}
+
+@keyframes pillFloatFade {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+  20% { opacity: 1; transform: translate(-50%, -24px) scale(1.05); }
+  75% { opacity: 1; transform: translate(-50%, -36px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -52px) scale(0.85); }
+}
+
 .wish-inner-text {
   font-family: var(--font-thai);
   font-size: 1rem;
@@ -2020,6 +2294,98 @@ html, body {
   font-size: 1.45rem;
   font-weight: 600;
   color: var(--color-pink-primary);
+}
+
+/* Grand Celebratory Fireworks Actions & Button */
+.wish-celebrate-actions {
+  margin: 18px 0 4px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 6;
+}
+
+.btn-fireworks {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #FF6B95 0%, #FFA84A 50%, #FF3D77 100%);
+  background-size: 200% 200%;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 40px;
+  font-family: var(--font-thai);
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(255, 107, 149, 0.45), 0 0 16px rgba(255, 200, 100, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+  animation: fireworksGlow 3s ease infinite, fireworksBgShift 4s ease infinite;
+}
+
+.btn-fireworks:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 30px rgba(255, 107, 149, 0.6), 0 0 24px rgba(255, 200, 100, 0.6);
+}
+
+.btn-fireworks:active {
+  transform: scale(0.96);
+}
+
+@keyframes fireworksGlow {
+  0%, 100% { box-shadow: 0 6px 24px rgba(255, 107, 149, 0.45), 0 0 12px rgba(255, 200, 100, 0.3); }
+  50% { box-shadow: 0 8px 32px rgba(255, 107, 149, 0.7), 0 0 24px rgba(255, 200, 100, 0.6); }
+}
+
+@keyframes fireworksBgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Sky Lanterns Layer (โคมลอยอธิษฐาน) */
+.sky-lanterns-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sky-lantern-item {
+  position: absolute;
+  bottom: -60px;
+  width: 32px;
+  height: 44px;
+  filter: drop-shadow(0 0 12px rgba(255, 165, 0, 0.85));
+  animation: lanternFloatUp 9s ease-in forwards;
+}
+
+.sky-lantern-item .lantern-svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes lanternFloatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.55);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.92;
+    transform: translateY(-120px) translateX(6px) scale(0.75);
+  }
+  60% {
+    opacity: 0.85;
+    transform: translateY(-500px) translateX(-12px) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-900px) translateX(18px) scale(1.1);
+  }
 }
 
 .wish-back-container {

@@ -18,27 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
     { from: 'arthur', text: 'อะลองเปิดดู' }
   ];
 
-  // รูปภาพ 4 ภาพ พร้อมข้อความจริง
+  // รูปภาพ 4 ภาพ พร้อมข้อความจริง และข้อความลับด้านหลังการ์ด
   const MEMORY_CARDS = [
     {
       src: 'png/IMG_7428.jpg',
       label: 'H',
-      caption: 'ผมจำได้ว่าผมฟอลพี่ไปก่อนแล้วพี่ reply story มาวันที่ 10 กุมภา ก็ตกใจนะแบบฟอลไปแล้วพี่ reply มา 5555'
+      caption: 'ผมจำได้ว่าผมฟอลพี่ไปก่อนแล้วพี่ reply story มาวันที่ 10 กุมภา ก็ตกใจนะแบบฟอลไปแล้วพี่ reply มา 5555',
+      secretNote: 'จุดเริ่มต้นเรื่องราวของเรา 10 กุมภาพันธ์... วินาทีที่เห็นพี่ reply กลับมา ใจเต้นแรงมาก ดีใจที่สุดเลยนะคนเก่ง',
+      stamp: 'FEB 10 • FIRST CHAT'
     },
     {
       src: 'png/IMG_7638.jpg',
       label: 'B',
-      caption: 'แล้วจากนั้นเราก็คุยกันมาเรื่อยๆใช่มั้ยยอมรับว่าผมมีความสุขมากๆ 5555 น่าจะดูออก แล้วมีวันนึงเหมือน deeptalk แล้วพี่บอกว่า "การที่เราแยกย้ายกันไปเติบโตแล้วกลับมาเจอกันในเวอร์ชันที่ดีกว่ามันอาจจะดีก็ได้แล้วมันก็ไม่ง่ายที่โลกเหวี่ยงมาเจอกันอะไรแบบนี้" ก็แบบทำให้เออรู้สึกดีมากๆ'
+      caption: 'แล้วจากนั้นเราก็คุยกันมาเรื่อยๆใช่มั้ยยอมรับว่าผมมีความสุขมากๆ 5555 น่าจะดูออก แล้วมีวันนึงเหมือน deeptalk แล้วพี่บอกว่า "การที่เราแยกย้ายกันไปเติบโตแล้วกลับมาเจอกันในเวอร์ชันที่ดีกว่ามันอาจจะดีก็ได้แล้วมันก็ไม่ง่ายที่โลกเหวี่ยงมาเจอกันอะไรแบบนี้" ก็แบบทำให้เออรู้สึกดีมากๆ',
+      secretNote: 'คำพูดของพี่ในวันนั้น ทำให้ผมยิ้มได้ไม่รู้กี่ครั้ง ขอบคุณที่โลกเหวี่ยงเราสองคนมาเจอกันในเวอร์ชันนี้จริงๆ นะ',
+      stamp: 'DEEP TALK • MEMORY'
     },
     {
       src: 'png/IMG_7639.jpg',
       label: 'D',
-      caption: 'ถึงตอนนี้ก็ยังรู้สึกดีอยู่ไม่เคยน้อยลงจากวันแรกที่เรากลับมาคุยกันเลย555แต่ตอนนี้ผมขอแค่อย่างเดียวคือให้พี่มีความสุขมากๆเยอะๆเลยไม่อยากให้เครียดไม่อยากให้เหนื่อยเลยขอแค่นี้ก็พอ'
+      caption: 'ถึงตอนนี้ก็ยังรู้สึกดีอยู่ไม่เคยน้อยลงจากวันแรกที่เรากลับมาคุยกันเลย555แต่ตอนนี้ผมขอแค่อย่างเดียวคือให้พี่มีความสุขมากๆเยอะๆเลยไม่อยากให้เครียดไม่อยากให้เหนื่อยเลยขอแค่นี้ก็พอ',
+      secretNote: '10 เดือนแล้วนะที่ได้คุยกัน ไม่เคยมีวันไหนที่รู้สึกน้อยลงเลย ขอให้รอยยิ้มของพี่สดใสแบบนี้ในทุกๆ วันนะ',
+      stamp: '10 MONTHS • TOGETHER'
     },
     {
       src: 'png/IMG_7660.jpg',
       label: 'HBD To P toey na',
-      caption: 'สุดท้ายนี้ในอนาคตไม่รู้ว่าเราสองคนจะเป็นยังไงแต่อยากบอกแค่อย่างเดียวคือให้พี่มีความสุขเยอะๆไม่เจ็บไม่ป่วยไม่เหนื่อยผมเป็นกำลังใจให้ตลอดนะวันนี้อาจจะไม่ใช่วันเกิดพี่จริงๆแต่ถือว่าอวยพรล่วงหน้านะ 555 ไม่รู้จะพิมยังไงอาจจะวกๆวนๆขอโทษด้วยนะ5555'
+      caption: 'สุดท้ายนี้ในอนาคตไม่รู้ว่าเราสองคนจะเป็นยังไงแต่อยากบอกแค่อย่างเดียวคือให้พี่มีความสุขเยอะๆไม่เจ็บไม่ป่วยไม่เหนื่อยผมเป็นกำลังใจให้ตลอดนะวันนี้อาจจะไม่ใช่วันเกิดพี่จริงๆแต่ถือว่าอวยพรล่วงหน้านะ 555 ไม่รู้จะพิมยังไงอาจจะวกๆวนๆขอโทษด้วยนะ5555',
+      secretNote: 'ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ และเป็นรอยยิ้มในชีวิตผมนะ สุขสันต์วันเกิดครับพี่เตย ขอให้มีความสุขที่สุดในโลกเลยนะ :D',
+      stamp: 'HBD • SPECIAL WISH'
     }
   ];
 
@@ -213,6 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="chat-time">${timestamp}</span>
     `;
 
+    // Interactive message tap reaction
+    row.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const r = row.getBoundingClientRect();
+      triggerSparkleBurst(r.left + r.width / 2, r.top + r.height / 2, 20, 'petals');
+    });
+
     chatArea.appendChild(row);
 
     requestAnimationFrame(() => {
@@ -250,6 +265,27 @@ document.addEventListener('DOMContentLoaded', () => {
   giftProceedBtn.addEventListener('click', () => {
     switchScene('gift');
   });
+
+  // Chat "Send Love" Reaction Interaction
+  const chatSendLoveBtn = document.getElementById('chat-send-love-btn');
+  if (chatSendLoveBtn) {
+    chatSendLoveBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const rect = chatSendLoveBtn.getBoundingClientRect();
+      triggerSparkleBurst(rect.left + rect.width / 2, rect.bottom + 8, 30, 'petals');
+
+      // Floating love reaction blossoms rising inside chat
+      for (let i = 0; i < 7; i++) {
+        const fl = document.createElement('span');
+        fl.className = 'chat-floating-blossom';
+        fl.innerHTML = `<svg viewBox="0 0 46 46"><use href="#sym-blossom"></use></svg>`;
+        fl.style.left = `${Math.random() * 80 + 10}%`;
+        fl.style.animationDelay = `${Math.random() * 0.3}s`;
+        chatArea.appendChild(fl);
+        setTimeout(() => fl.remove(), 2100);
+      }
+    });
+  }
 
   /* ────────────────────────────────────────────────────────────
      6. SCENE 3: GIFT BOX & AUDIO ACTIVATION
@@ -387,23 +423,73 @@ document.addEventListener('DOMContentLoaded', () => {
     dotsTrackEl.innerHTML = '';
 
     MEMORY_CARDS.forEach((item, index) => {
-      // Build Card
+      // Build 3D Flippable Card
       const card = document.createElement('article');
       card.className = 'postit-card';
       card.id = `postit-item-${index}`;
 
       card.innerHTML = `
-        <div class="washi-tape"></div>
-        <div class="postit-photo-frame">
-          <img class="postit-img" src="${item.src}" alt="${item.label}" loading="lazy">
-        </div>
-        <div class="postit-caption-block">
-          <span class="postit-index-label">${item.label}</span>
-          <p class="postit-user-caption">${escapeHtml(item.caption)}</p>
+        <div class="postit-card-inner">
+          <!-- FRONT OF CARD -->
+          <div class="postit-face card-front">
+            <div class="washi-tape"></div>
+            <div class="postit-photo-frame" title="แตะเพื่อพลิกดูข้อความลับ">
+              <img class="postit-img" src="${item.src}" alt="${item.label}" loading="lazy">
+              <div class="photo-glare-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="postit-caption-block">
+              <div class="postit-meta-row">
+                <span class="postit-index-label">${item.label}</span>
+                <button class="btn-flip-card" type="button" aria-label="แตะเพื่อดูข้อความพิเศษ">
+                  <span class="sparkle-sym">✦</span> ข้อความพิเศษ
+                </button>
+              </div>
+              <p class="postit-user-caption">${escapeHtml(item.caption)}</p>
+            </div>
+          </div>
+
+          <!-- BACK OF CARD (SECRET HANDWRITTEN NOTE) -->
+          <div class="postit-face card-back">
+            <div class="washi-tape washi-back"></div>
+            <div class="secret-card-content">
+              <div class="secret-stamp-badge">
+                <span class="stamp-star">✦</span>
+                <span class="stamp-text">${item.stamp}</span>
+              </div>
+              <div class="secret-note-body">
+                <p class="secret-note-text">${escapeHtml(item.secretNote)}</p>
+              </div>
+              <div class="secret-card-footer">
+                <div class="secret-seal-mark">
+                  <svg class="seal-svg" viewBox="0 0 48 48"><use href="#sym-rose"></use></svg>
+                  <span class="seal-text">A & T</span>
+                </div>
+                <button class="btn-flip-back" type="button">
+                  <span>พลิกกลับดูรูป</span> ↺
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 
-      // Build Behind-Card Decorations (Handcrafted Vector Art)
+      // Flip toggle listeners
+      const flipBtn = card.querySelector('.btn-flip-card');
+      const flipBackBtn = card.querySelector('.btn-flip-back');
+      const photoFrame = card.querySelector('.postit-photo-frame');
+
+      function toggleFlip(e) {
+        e.stopPropagation();
+        card.classList.toggle('flipped');
+        const rect = card.getBoundingClientRect();
+        triggerSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 26, 'stars');
+      }
+
+      if (flipBtn) flipBtn.addEventListener('click', toggleFlip);
+      if (flipBackBtn) flipBackBtn.addEventListener('click', toggleFlip);
+      if (photoFrame) photoFrame.addEventListener('click', toggleFlip);
+
+      // Build Behind-Card Decorations (Handcrafted Vector Art + Tap Interaction)
       const decoLayer = document.createElement('div');
       decoLayer.className = 'card-deco-layer';
       decoLayer.setAttribute('aria-hidden', 'true');
@@ -411,13 +497,40 @@ document.addEventListener('DOMContentLoaded', () => {
       const cardDecos = CARD_DECORATIONS[index] || CARD_DECORATIONS[0];
       cardDecos.forEach(d => {
         const deco = document.createElement('span');
-        deco.className = `deco-unit deco-${d.sym.replace('#sym-', '')}`;
+        const decoType = d.sym.replace('#sym-', '');
+        deco.className = `deco-unit deco-${decoType} interactive-pet`;
+        deco.title = 'แตะฉันสิ!';
         deco.innerHTML = `<svg class="deco-vector-svg" viewBox="${d.viewBox}"><use href="${d.sym}"></use></svg>`;
         if (d.top) deco.style.top = d.top;
         if (d.bottom) deco.style.bottom = d.bottom;
         if (d.left) deco.style.left = d.left;
         if (d.right) deco.style.right = d.right;
         if (d.delay) deco.style.animationDelay = `${d.delay}, calc(${d.delay} + 0.7s)`;
+
+        // Interactive Companion reaction on click/tap
+        deco.addEventListener('click', (e) => {
+          e.stopPropagation();
+          deco.classList.remove('pet-jump');
+          void deco.offsetWidth; // force reflow
+          deco.classList.add('pet-jump');
+
+          const r = deco.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+
+          if (decoType === 'dog') {
+            triggerSparkleBurst(cx, cy, 28, 'stars');
+            showFloatingPill(cx, cy, 'โฮ่ง! ดีใจจัง ✦');
+          } else if (decoType === 'cat') {
+            triggerSparkleBurst(cx, cy, 28, 'petals');
+            showFloatingPill(cx, cy, 'เหมียว~ รักนะ ✦');
+          } else if (decoType === 'paw') {
+            triggerSparkleBurst(cx, cy, 20, 'stars');
+          } else {
+            triggerSparkleBurst(cx, cy, 24, 'petals');
+          }
+        });
+
         decoLayer.appendChild(deco);
       });
 
@@ -552,11 +665,94 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         triggerSparkleBurst(cx, cy, 60, 'stars');
       }, 250);
+
+      // Reveal Grand Fireworks Celebration button
+      const fwBtn = document.getElementById('fireworks-launch-btn');
+      if (fwBtn) {
+        fwBtn.classList.remove('hidden');
+        fwBtn.classList.add('glow-pulse');
+      }
+
+      // Launch grand celebratory fireworks volley
+      setTimeout(() => {
+        launchCelebrationShow();
+      }, 400);
+
+      // Release romantic floating sky lanterns
+      spawnSkyLanterns();
     });
   }
 
-  // Touch Swipe Gesture Support for Memory Photo Cards
+  // Interactive Fireworks Button
+  const fireworksLaunchBtn = document.getElementById('fireworks-launch-btn');
+  if (fireworksLaunchBtn) {
+    fireworksLaunchBtn.addEventListener('click', () => {
+      launchCelebrationShow();
+    });
+  }
+
+  // Tap anywhere in Scene 5 to launch a custom Firework Rocket!
+  const sceneWishEl = document.getElementById('scene-wish');
+  if (sceneWishEl) {
+    sceneWishEl.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('#candle-interactive-block')) return;
+      launchFireworkRocket(e.clientX, e.clientY, Math.random() > 0.5 ? 'stars' : 'petals');
+    });
+  }
+
+  // Floating Sky Lanterns Generator
+  function spawnSkyLanterns() {
+    const layer = document.getElementById('sky-lanterns-layer');
+    if (!layer) return;
+    layer.innerHTML = '';
+    const count = 8;
+    for (let i = 0; i < count; i++) {
+      const lantern = document.createElement('div');
+      lantern.className = 'sky-lantern-item';
+      lantern.innerHTML = `
+        <svg class="lantern-svg" viewBox="0 0 36 50">
+          <use href="#sym-lantern"></use>
+        </svg>
+      `;
+      lantern.style.left = `${(i * 12) + Math.random() * 6 + 3}%`;
+      lantern.style.animationDelay = `${i * 0.45}s`;
+      lantern.style.animationDuration = `${Math.random() * 3 + 7.5}s`;
+      layer.appendChild(lantern);
+    }
+  }
+
+  // Floating Speech Reaction Pill for Animals & Companions
+  function showFloatingPill(x, y, text) {
+    const pill = document.createElement('div');
+    pill.className = 'companion-reaction-pill';
+    pill.textContent = text;
+    pill.style.left = `${x}px`;
+    pill.style.top = `${y}px`;
+    document.body.appendChild(pill);
+    setTimeout(() => pill.remove(), 1600);
+  }
+
+  // 3D Parallax Tilt for Memory Cards
   const postitViewport = document.querySelector('.postit-viewport');
+  if (postitViewport) {
+    postitViewport.addEventListener('mousemove', (e) => {
+      const activeCard = document.querySelector('.postit-card.state-active');
+      if (!activeCard || activeCard.classList.contains('flipped')) return;
+      const rect = postitViewport.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rx = -(y / rect.height) * 12;
+      const ry = (x / rect.width) * 12;
+      activeCard.style.transform = `perspective(1000px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.02)`;
+    });
+
+    postitViewport.addEventListener('mouseleave', () => {
+      const activeCard = document.querySelector('.postit-card.state-active');
+      if (activeCard && !activeCard.classList.contains('flipped')) {
+        activeCard.style.transform = '';
+      }
+    });
+  }
   if (postitViewport) {
     let touchStartX = 0;
     let touchStartY = 0;
@@ -810,8 +1006,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   requestAnimationFrame(renderAmbient);
 
-  // Burst Particles System (For Envelope & Gift Open)
+  // Burst Particles & Grand Fireworks Rockets System
   const burstParticles = [];
+  const fireworkRockets = [];
+
+  function launchFireworkRocket(targetX, targetY, burstType = 'stars') {
+    const startX = targetX + (Math.random() - 0.5) * 60;
+    const startY = windowHeight + 10;
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const speed = Math.random() * 3 + 14;
+
+    fireworkRockets.push({
+      x: startX,
+      y: startY,
+      targetX: targetX,
+      targetY: targetY,
+      vx: (dx / dist) * speed,
+      vy: (dy / dist) * speed,
+      burstType: burstType
+    });
+
+    if (burstParticles.length === 0 && fireworkRockets.length === 1) {
+      requestAnimationFrame(renderBurst);
+    }
+  }
+
+  function launchCelebrationShow() {
+    const types = ['stars', 'petals', 'confetti', 'stars', 'petals', 'confetti'];
+    for (let k = 0; k < 6; k++) {
+      setTimeout(() => {
+        const tx = Math.random() * (windowWidth * 0.7) + (windowWidth * 0.15);
+        const ty = Math.random() * (windowHeight * 0.38) + (windowHeight * 0.12);
+        launchFireworkRocket(tx, ty, types[k % types.length]);
+      }, k * 280);
+    }
+  }
 
   function triggerSparkleBurst(ox, oy, count = 50, type = 'stars') {
     const isPetal = (type === 'petals' || type === 'flowers');
@@ -843,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    if (burstParticles.length === count) {
+    if (burstParticles.length === count && fireworkRockets.length === 0) {
       requestAnimationFrame(renderBurst);
     }
   }
@@ -852,6 +1083,49 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!bctx) return;
     bctx.clearRect(0, 0, windowWidth, windowHeight);
 
+    // 1. Advance and render rising firework rockets
+    for (let i = fireworkRockets.length - 1; i >= 0; i--) {
+      const r = fireworkRockets[i];
+      r.x += r.vx;
+      r.y += r.vy;
+
+      bctx.save();
+      bctx.beginPath();
+      bctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
+      bctx.fillStyle = '#FFECA0';
+      bctx.shadowColor = '#FFA500';
+      bctx.shadowBlur = 10;
+      bctx.fill();
+      bctx.restore();
+
+      // Emit trailing spark
+      if (Math.random() > 0.2) {
+        burstParticles.push({
+          x: r.x + (Math.random() - 0.5) * 4,
+          y: r.y + (Math.random() - 0.5) * 4,
+          vx: (Math.random() - 0.5) * 0.8,
+          vy: Math.random() * 1.5 + 0.4,
+          gravity: 0.1,
+          color: '#FFD79E',
+          width: 2.2,
+          height: 2.2,
+          rotation: 0,
+          rotSpeed: 0,
+          alpha: 0.9,
+          life: 0.75,
+          decay: 0.045,
+          type: 'spark'
+        });
+      }
+
+      // Detonate into grand firework upon reaching target height
+      if (r.y <= r.targetY) {
+        triggerSparkleBurst(r.targetX, r.targetY, 70, r.burstType);
+        fireworkRockets.splice(i, 1);
+      }
+    }
+
+    // 2. Advance and render bursting particles
     for (let i = burstParticles.length - 1; i >= 0; i--) {
       const p = burstParticles[i];
       p.x += p.vx;
@@ -880,6 +1154,9 @@ document.addEventListener('DOMContentLoaded', () => {
         bctx.beginPath();
         bctx.ellipse(0, 0, p.width * 1.3, p.height * 0.9, 0, 0, Math.PI * 2);
         bctx.fill();
+      } else if (p.type === 'spark') {
+        // Small trail sparks
+        bctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
       } else {
         // Sparkling diamonds
         bctx.beginPath();
@@ -893,15 +1170,17 @@ document.addEventListener('DOMContentLoaded', () => {
       bctx.restore();
     }
 
-    if (burstParticles.length > 0) {
+    if (burstParticles.length > 0 || fireworkRockets.length > 0) {
       requestAnimationFrame(renderBurst);
     } else {
       bctx.clearRect(0, 0, windowWidth, windowHeight);
     }
   }
 
-  // Expose triggerSparkleBurst to outer scopes
+  // Expose triggers to outer scopes
   window.triggerSparkleBurst = triggerSparkleBurst;
+  window.launchFireworkRocket = launchFireworkRocket;
+  window.launchCelebrationShow = launchCelebrationShow;
 
   /* ────────────────────────────────────────────────────────────
      11. HELPER FUNCTIONS
